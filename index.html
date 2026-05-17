@@ -4,154 +4,221 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="CareerPath - Guiding students towards their dream careers with expert mentorship and clear roadmaps.">
-    <meta name="keywords" content="career guidance, mentorship, education, career planning, student guidance">
-    <meta name="author" content="CareerPath Team">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://your-github-username.github.io/careerpath/">
     <title>CareerPath | Future Ready Students</title>
 
     <link rel="stylesheet" href="style.css">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        },
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6j5VEMDw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
-<body class="bg-slate-50">
+<body class="bg-white selection:bg-indigo-100 selection:text-indigo-900">
 
     <!-- Navbar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50 fade-in-up animate-fade-in-down animate-on-load">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between h-16 items-center">
-            <span class="text-2xl font-bold text-primary animate-bounce-in">
-                <i class="fas fa-graduation-cap mr-2 text-accent animate-wiggle"></i>CareerPath
-            </span>
-            <div class="hidden md:flex space-x-8 text-gray-600">
-                <a href="index.html" class="hover:text-blue-600 transition-colors animate-fade-in-up delay-200">Home</a>
-                <a href="#explore" class="hover:text-blue-600 transition-colors animate-fade-in-up delay-400">Explore Careers</a>
-                <a href="login.html" class="hover:text-blue-600 transition-colors animate-fade-in-up delay-600">Mentors</a>
-            </div>
-            <div class="flex space-x-4 items-center" id="auth-section">
-                <a href="login.html" class="text-blue-600 font-semibold hover:text-blue-700 transition-colors animate-fade-in-up delay-800">Login</a>
-                <button class="btn-primary text-white px-5 py-2 rounded-full shadow-lg hover:shadow-xl animate-fade-in-up delay-1000" onclick="openMentorModal()">
-                    <span>Join as Mentor</span>
-                </button>
+    <nav class="fixed w-full z-50 glass border-b border-slate-200/50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-2 cursor-pointer">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                        <i class="fas fa-compass text-white text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-slate-900 font-['Outfit'] tracking-tight">CareerPath</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8 font-medium">
+                    <a href="#" class="nav-link text-sm">Home</a>
+                    <a href="#explore" class="nav-link text-sm">Explore Paths</a>
+                    <a href="#mentors" class="nav-link text-sm">Mentorship</a>
+                </div>
+
+                <div class="flex items-center gap-4" id="auth-section">
+                    <a href="login.html" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">Sign in</a>
+                    <button class="btn-primary px-5 py-2.5 rounded-lg font-medium text-sm" onclick="openMentorModal()">
+                        Become a Mentor
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <header class="hero-gradient text-white py-20 text-center relative fade-in-up">
-        <div class="particles">
-            <div class="particle" style="width: 10px; height: 10px; top: 20%;"></div>
-            <div class="particle" style="width: 8px; height: 8px; top: 40%;"></div>
-            <div class="particle" style="width: 12px; height: 12px; top: 60%;"></div>
-            <div class="particle" style="width: 6px; height: 6px; top: 80%;"></div>
-            <div class="particle" style="width: 14px; height: 14px; top: 30%;"></div>
-            <div class="particle" style="width: 9px; height: 9px; top: 50%;"></div>
-            <div class="particle" style="width: 11px; height: 11px; top: 70%;"></div>
-            <div class="particle" style="width: 7px; height: 7px; top: 90%;"></div>
-            <div class="particle" style="width: 13px; height: 13px; top: 25%;"></div>
-            <div class="particle" style="width: 5px; height: 5px; top: 75%;"></div>
-        </div>
-        <div class="max-w-4xl mx-auto px-4">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-bounce-in typing-animation">Right guidance, bright future.</h1>
-            <p class="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in-up delay-500">What to do after 10th and 12th? Learn from experts.</p>
-            <button class="btn-primary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl animate-fade-in-up delay-700 animate-glow" onclick="getStartedFree()">
-                <span>Get Started</span>
-            </button>
-        </div>
-    </header>
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <!-- Abstract Background Elements -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-[500px] h-[500px] rounded-full bg-indigo-50 blur-3xl opacity-50 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-[400px] h-[400px] rounded-full bg-blue-50 blur-3xl opacity-50 pointer-events-none"></div>
 
-    <!-- Cards -->
-    <section id="explore" class="max-w-7xl mx-auto py-16 px-4">
-        <h2 class="text-3xl font-bold text-center mb-12 fade-in-up animate-bounce-in">Explore Career Paths</h2>
-        <div class="grid md:grid-cols-3 gap-6" id="careers-container">
-            <div class="col-span-3 text-center py-8">
-                <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-4"></i>
-                <p class="text-gray-500">Loading careers...</p>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="max-w-2xl animate-fade-up">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-sm font-semibold mb-6">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                        </span>
+                        New Mentorship Program Live
+                    </div>
+                    <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight mb-6">
+                        Discover Your <br/>
+                        <span class="text-gradient">True Potential.</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed max-w-xl">
+                        Stop guessing about your future. Get crystal-clear career roadmaps and 1-on-1 guidance from industry experts who have been exactly where you are today.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2" onclick="window.location.href='login.html'">
+                            Get Started Free <i class="fas fa-arrow-right text-sm"></i>
+                        </button>
+                        <button class="px-8 py-4 rounded-xl font-semibold text-lg text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition-colors flex items-center justify-center gap-2" onclick="watchDemo()">
+                            <i class="fas fa-play-circle text-indigo-600"></i> Watch Demo
+                        </button>
+                    </div>
+                    
+                    <div class="mt-10 flex items-center gap-4 text-sm text-slate-500 font-medium">
+                        <div class="flex -space-x-3">
+                            <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="User">
+                            <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-xs font-bold text-slate-600">+2k</div>
+                        </div>
+                        <p>Trusted by 2,000+ students</p>
+                    </div>
+                </div>
+                <div class="relative lg:block hidden animate-fade-in delay-200">
+                    <!-- Glow behind image -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/20 to-purple-500/20 rounded-full blur-3xl transform scale-90"></div>
+                    <img src="assets/hero.png" alt="Career Path Illustration" class="w-full max-w-lg mx-auto relative z-10 animate-float drop-shadow-2xl">
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="bg-white py-16 px-4">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-12 fade-in-up animate-bounce-in">Why Choose CareerPath?</h2>
+    <section class="py-20 bg-slate-50 border-y border-slate-100" id="features">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">Why Choose CareerPath?</h2>
+                <p class="text-slate-600">We provide a comprehensive ecosystem designed to take you from confusion to clarity, ensuring you make the right decisions at the right time.</p>
+            </div>
+            
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center fade-in-up delay-1 animate-slide-in-left">
-                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 feature-icon animate-morph">
-                        <i class="fas fa-users text-2xl text-blue-600"></i>
+                <!-- Feature 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm reveal-on-scroll delay-100 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-user-tie text-2xl text-indigo-600"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Expert Mentors</h3>
-                    <p class="text-gray-600">Learn from industry professionals with years of experience in their fields.</p>
+                    <h3 class="text-xl font-semibold mb-3">Expert Mentors</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Connect directly with industry professionals from top companies who provide personalized guidance and actionable advice.</p>
                 </div>
-                <div class="text-center fade-in-up delay-2 animate-bounce-in">
-                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 feature-icon animate-float">
-                        <i class="fas fa-road text-2xl text-green-600"></i>
+                
+                <!-- Feature 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm reveal-on-scroll delay-200 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-blue-50 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-map-marked-alt text-2xl text-blue-600"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Clear Roadmaps</h3>
-                    <p class="text-gray-600">Step-by-step guidance from 10th/12th to your dream career.</p>
+                    <h3 class="text-xl font-semibold mb-3">Clear Roadmaps</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Stop wandering. Get step-by-step interactive roadmaps showing exactly what skills to learn and when to learn them.</p>
                 </div>
-                <div class="text-center fade-in-up delay-3 animate-slide-in-right">
-                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 feature-icon animate-wiggle">
-                        <i class="fas fa-chart-line text-2xl text-purple-600"></i>
+                
+                <!-- Feature 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm reveal-on-scroll delay-300 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-2xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Success Stories</h3>
-                    <p class="text-gray-600">Real stories from students who achieved their career goals with our guidance.</p>
+                    <h3 class="text-xl font-semibold mb-3">Fast-Track Success</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">Save years of trial and error. Learn the insider tips and tricks to land internships and jobs faster than your peers.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="bg-slate-50 py-16 px-4">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-12 fade-in-up">What Our Students Say</h2>
+    <!-- Careers Section -->
+    <section id="explore" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12 reveal-on-scroll">
+                <div class="max-w-2xl">
+                    <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Explore Career Paths</h2>
+                    <p class="text-slate-600">Dive deep into highly rewarding career trajectories. Discover what it takes to succeed.</p>
+                </div>
+                <div class="hidden md:block">
+                    <button class="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors flex items-center gap-2">
+                        View all paths <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="careers-container">
+                <div class="col-span-3 text-center py-12">
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-indigo-600 mb-4"></i>
+                    <p class="text-slate-500 font-medium">Loading career data...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-24 bg-slate-900 text-white overflow-hidden relative">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAzNHYtNGgtMnY0aC00djJoNHY0aDJ2LTRoNHYtMmgtNHptMC0zMFYwaC0ydjRoLTR2Mmg0djRoMnYtNGg0VjRoLTR6TTI214VjEwaC0ydjRoLTR2Mmg0djRoMnYtNGg0di0yaC00ek0xNCAzOXYtNGgtMnY0SC0ydjJoNHY0aDJ2LTRoNHYtMmgtNHptMC0zMFY1aC0ydjRILTh2Mmg0djRoMnYtNGg0VjloLTR6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L2c+PC9zdmc+')]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 reveal-on-scroll">Success Stories</h2>
+            
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-lg fade-in-up delay-1">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                            R
-                        </div>
-                        <div>
-                            <h4 class="font-semibold">Harshit Chopra </h4>
-                            <p class="text-gray-600 text-sm">Engineering Student</p>
-                        </div>
+                <!-- Testimonial 1 -->
+                <div class="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 reveal-on-scroll delay-100">
+                    <div class="flex text-amber-400 mb-6 text-sm gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p class="text-gray-700 italic">"CareerPath helped me choose the right engineering branch. The mentors were incredibly helpful!"</p>
-                    <div class="flex text-yellow-400 mt-2">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">"Before CareerPath, I had no idea how to transition into tech from a non-CS background. The structured roadmap and my mentor's advice helped me land a UI/UX role in just 6 months!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">M</div>
+                        <div>
+                            <h4 class="font-bold text-white">Mayur Prajapat</h4>
+                            <p class="text-sm text-slate-400">UI/UX Designer @ TechCorp</p>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg fade-in-up delay-2">
-                    <div class="flex items-center mb-4">
-                        <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-4">
-                            P
-                        </div>
-                        <div>
-                            <h4 class="font-semibold">Mayur Prajapat </h4>
-                            <p class="text-gray-600 text-sm">UI/UX Designer</p>
-                        </div>
+
+                <!-- Testimonial 2 -->
+                <div class="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 reveal-on-scroll delay-200">
+                    <div class="flex text-amber-400 mb-6 text-sm gap-1">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                     </div>
-                    <p class="text-gray-700 italic">"Thanks to CareerPath, I discovered my passion for design. Now I'm working at a top design agency!"</p>
-                    <div class="flex text-yellow-400 mt-2">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                    <p class="text-slate-300 text-lg mb-8 leading-relaxed">"The engineering roadmap was exactly what I needed. Instead of being overwhelmed by thousands of tutorials, I followed the exact path my mentor laid out. Saved me so much time."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center text-white font-bold text-lg">H</div>
+                        <div>
+                            <h4 class="font-bold text-white">Harshit Chopra</h4>
+                            <p class="text-sm text-slate-400">Software Engineer</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,176 +226,204 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16 px-4 cta-section">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-4 fade-in-up animate-bounce-in">Ready to Start Your Journey?</h2>
-            <p class="text-xl mb-8 opacity-90 fade-in-up delay-1 animate-fade-in-up">Join thousands of students who have found their perfect career path with CareerPath.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up delay-2">
-                <button class="btn-primary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl animate-glow" onclick="getStartedFree()">
-                    <span>Get Started Free</span>
-                </button>
-                <button class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-blue-600 transition-all animate-pulse" onclick="watchDemo()">
-                    <span>Watch Demo</span>
+    <section class="py-24 bg-white relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-indigo-600 rounded-3xl p-10 md:p-16 text-center text-white shadow-2xl shadow-indigo-600/20 reveal-on-scroll overflow-hidden relative">
+                <!-- Decorative Circles -->
+                <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-white opacity-10 blur-2xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-16 -mb-16 w-64 h-64 rounded-full bg-white opacity-10 blur-2xl"></div>
+
+                <h2 class="text-3xl md:text-5xl font-bold mb-6 relative z-10">Ready to design your future?</h2>
+                <p class="text-indigo-100 text-lg mb-10 max-w-2xl mx-auto relative z-10">Join thousands of students who have stopped guessing and started building their dream careers with CareerPath.</p>
+                <button class="bg-white text-indigo-600 px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:scale-105 transition-transform relative z-10" onclick="window.location.href='login.html'">
+                    Create Free Account
                 </button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 px-4">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">
-                        <i class="fas fa-graduation-cap mr-2"></i>CareerPath
-                    </h3>
-                    <p class="text-gray-400">Guiding students towards their dream careers with expert mentorship and clear roadmaps.</p>
+    <footer class="bg-slate-900 border-t border-slate-800 text-slate-400 py-12 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-2 mb-6">
+                    <i class="fas fa-compass text-indigo-500 text-xl"></i>
+                    <span class="text-xl font-bold text-white font-['Outfit']">CareerPath</span>
                 </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
-                        <li><a href="#explore" class="hover:text-white transition-colors">Explore Careers</a></li>
-                        <li><a href="login.html" class="hover:text-white transition-colors">Mentors</a></li>
-                        <li><a href="login.html" class="hover:text-white transition-colors">Login</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Career Fields</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition-colors">Engineering</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Design</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Commerce</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Medical</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><i class="fas fa-envelope mr-2"></i>info@careerpath.com</li>
-                        <li><i class="fas fa-phone mr-2"></i>+91 81200xxxxx</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i>Indore, India</li>
-                    </ul>
+                <p class="text-sm leading-relaxed mb-6">Empowering the next generation with clarity, mentorship, and actionable career roadmaps.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2026 CareerPath. Designed by Mayur & Harshit  with amazing animations. All rights reserved.</p>
+            
+            <div>
+                <h4 class="text-white font-semibold mb-6">Platform</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="footer-link block">Browse Careers</a></li>
+                    <li><a href="#" class="footer-link block">Find a Mentor</a></li>
+                    <li><a href="#" class="footer-link block">Roadmaps</a></li>
+                    <li><a href="#" class="footer-link block">Pricing</a></li>
+                </ul>
             </div>
+            
+            <div>
+                <h4 class="text-white font-semibold mb-6">Company</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="footer-link block">About Us</a></li>
+                    <li><a href="#" class="footer-link block">Careers</a></li>
+                    <li><a href="#" class="footer-link block">Privacy Policy</a></li>
+                    <li><a href="#" class="footer-link block">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="text-white font-semibold mb-6">Contact</h4>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center gap-3"><i class="fas fa-envelope text-slate-500"></i> hello@careerpath.com</li>
+                    <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-slate-500"></i> Indore, India</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto pt-8 border-t border-slate-800 text-sm text-center">
+            <p>&copy; 2026 CareerPath Inc. All rights reserved. Designed by Mayur & Harshit.</p>
         </div>
     </footer>
 
     <!-- Video Modal -->
-    <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl p-6 max-w-4xl w-full mx-4 relative">
-            <button onclick="closeVideoModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">
-                <i class="fas fa-times"></i>
+    <div id="videoModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-[60] hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-4 w-full max-w-4xl mx-4 relative transform scale-95 transition-transform duration-300" id="videoModalContent">
+            <button onclick="closeVideoModal()" class="absolute -top-12 right-0 text-white hover:text-slate-300 text-xl p-2">
+                <i class="fas fa-times"></i> Close
             </button>
-            <h3 class="text-2xl font-bold mb-4" id="videoTitle">Career Demo</h3>
-            <div class="aspect-video bg-gray-200 rounded-lg flex items-center justify-center">
-                <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allowfullscreen class="rounded-lg"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- Details Modal -->
-    <div id="detailsModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden transition-opacity">
-        <div class="bg-white rounded-xl overflow-hidden max-w-2xl w-full mx-4 relative shadow-2xl transform transition-all">
-            <div class="relative h-48 bg-gray-200">
-                <img id="detailsImg" src="" alt="Career Image" class="w-full h-full object-cover">
-                <button onclick="closeDetailsModal()" class="absolute top-4 right-4 bg-white rounded-full p-2 text-gray-800 hover:text-red-600 shadow-md">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="p-8">
-                <h3 class="text-3xl font-bold mb-4 text-gray-800" id="detailsTitle">Career Title</h3>
-                <div class="w-16 h-1 bg-blue-600 mb-6"></div>
-                <p class="text-gray-600 text-lg leading-relaxed mb-8" id="detailsDesc">Description goes here</p>
-                <button class="btn-primary text-white px-6 py-3 rounded-lg font-semibold w-full md:w-auto" onclick="closeDetailsModal()">
-                    Close
-                </button>
+            <div class="aspect-video bg-slate-100 rounded-xl overflow-hidden shadow-inner">
+                <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
 
     <!-- Mentor Registration Modal -->
-    <div id="mentorModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4 relative">
-            <button onclick="closeMentorModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl">
+    <div id="mentorModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-[60] hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative shadow-2xl transform scale-95 transition-transform duration-300" id="mentorModalContent">
+            <button onclick="closeMentorModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
                 <i class="fas fa-times"></i>
             </button>
             <div class="text-center mb-6">
-                <i class="fas fa-user-graduate text-4xl text-blue-600 mb-4"></i>
-                <h3 class="text-2xl font-bold text-gray-800">Join as Mentor</h3>
-                <p class="text-gray-600 mt-2">Share your expertise and guide the next generation</p>
+                <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-tie text-2xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900">Become a Mentor</h3>
+                <p class="text-slate-500 text-sm mt-2">Guide the next generation and give back to the community.</p>
             </div>
             <form id="mentor-form" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                    <input type="text" id="mentor-name" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your full name">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
+                    <input type="text" id="mentor-name" required class="w-full px-4 py-2.5 rounded-xl premium-input text-sm" placeholder="John Doe">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="mentor-email" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your email">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Email</label>
+                    <input type="email" id="mentor-email" required class="w-full px-4 py-2.5 rounded-xl premium-input text-sm" placeholder="john@company.com">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Profession</label>
-                    <select id="mentor-profession" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">Select your profession</option>
-                        <option value="Engineer">Engineer</option>
-                        <option value="Designer">Designer</option>
-                        <option value="CA/Accountant">CA/Accountant</option>
-                        <option value="Doctor">Doctor</option>
-                        <option value="Teacher">Teacher</option>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Expertise</label>
+                    <select id="mentor-profession" required class="w-full px-4 py-2.5 rounded-xl premium-input text-sm text-slate-700">
+                        <option value="">Select your field</option>
+                        <option value="Software Engineering">Software Engineering</option>
+                        <option value="UI/UX Design">UI/UX Design</option>
+                        <option value="Finance & CA">Finance & CA</option>
+                        <option value="Medical">Medical</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Experience (years)</label>
-                    <input type="number" id="mentor-experience" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Years of experience">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">Experience (Years)</label>
+                    <input type="number" id="mentor-experience" required min="1" max="50" class="w-full px-4 py-2.5 rounded-xl premium-input text-sm" placeholder="e.g. 5">
                 </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
-                    <i class="fas fa-paper-plane mr-2"></i>Submit Application
+                <button type="submit" class="w-full btn-primary py-3 rounded-xl font-semibold text-sm mt-2">
+                    Submit Application
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Script -->
+    <!-- Career Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-[60] hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl overflow-hidden max-w-2xl w-full mx-4 relative shadow-2xl transform scale-95 transition-transform duration-300" id="detailsModalContent">
+            <button onclick="closeDetailsModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full glass-dark flex items-center justify-center text-white hover:bg-black/50 transition-colors z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="relative h-64 bg-slate-200">
+                <img id="detailsImg" src="" alt="Career Cover" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                <h3 class="absolute bottom-6 left-8 text-3xl font-bold text-white" id="detailsTitle">Career Title</h3>
+            </div>
+            <div class="p-8">
+                <div class="prose prose-slate max-w-none">
+                    <h4 class="text-lg font-semibold text-slate-900 mb-2">Overview</h4>
+                    <p class="text-slate-600 leading-relaxed mb-6" id="detailsDesc">Description goes here</p>
+                </div>
+                <div class="flex justify-end pt-6 border-t border-slate-100">
+                    <button class="btn-primary px-6 py-2.5 rounded-xl font-semibold" onclick="closeDetailsModal()">
+                        Got it
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
     <script>
-        // Page loading animation
-        window.addEventListener('load', function() {
+        // --- Initialization ---
+        window.addEventListener('load', () => {
             document.body.classList.add('loaded');
-            // Add entrance animations after page load
-            setTimeout(() => {
-                document.querySelectorAll('.animate-on-load').forEach((el, index) => {
-                    setTimeout(() => {
-                        el.style.opacity = '1';
-                        el.style.transform = 'translateY(0)';
-                    }, index * 100);
-                });
-            }, 500);
-            
             checkAuthState();
             fetchCareers();
+            initScrollAnimations();
         });
-        
+
+        // --- Navbar Scroll Effect ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-sm', 'bg-white/90');
+            } else {
+                nav.classList.remove('shadow-sm', 'bg-white/90');
+            }
+        });
+
+        // --- Intersection Observer for Animations ---
+        function initScrollAnimations() {
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // --- Authentication Logic ---
         function checkAuthState() {
             const userStr = localStorage.getItem('careerPathUser');
             if (userStr) {
                 const user = JSON.parse(userStr);
                 const authSection = document.getElementById('auth-section');
                 if (authSection) {
+                    const initials = user.email.charAt(0).toUpperCase();
+                    const name = user.email.split('@')[0];
                     authSection.innerHTML = `
-                        <div class="hidden sm:flex items-center">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold mr-2 border border-blue-200">
-                                ${user.email.charAt(0).toUpperCase()}
-                            </div>
-                            <span class="text-gray-700 font-medium mr-4 hidden md:block">Hi, ${user.email.split('@')[0]}</span>
+                        <div class="flex items-center gap-3 mr-2">
+                            <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 font-bold flex items-center justify-center border border-indigo-200 shadow-sm">${initials}</div>
+                            <span class="text-sm font-semibold text-slate-700 hidden md:block">${name}</span>
                         </div>
-                        <button onclick="logout()" class="text-red-500 font-semibold hover:text-red-700 transition-colors">Logout</button>
-                        <button class="btn-primary text-white px-5 py-2 rounded-full shadow-lg hover:shadow-xl ml-2 sm:ml-4" onclick="openMentorModal()">
-                            <span>Join as Mentor</span>
-                        </button>
+                        <button onclick="logout()" class="text-slate-500 hover:text-red-600 font-medium text-sm transition-colors">Sign out</button>
                     `;
                 }
             }
@@ -339,285 +434,135 @@
             window.location.reload();
         }
 
+        // --- Fetch & Render Careers ---
         async function fetchCareers() {
             try {
-                // Mock careers for GitHub Pages
+                // Hardcoded presentation data
                 const careers = [
-                    { title: 'Aerospace Engineering', description: 'Learn how to join ISRO and explore the vast universe. Aerospace engineering involves designing and building aircraft, spacecraft, and related systems.', category: 'science', image_url: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=200&fit=crop&crop=center' },
-                    { title: 'UI/UX Design', description: 'Creative high-paying career in digital design. UI/UX design focuses on creating intuitive and visually appealing digital interfaces.', category: 'creative', image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=200&fit=crop&crop=center' },
-                    { title: 'Chartered Accountancy (CA)', description: 'Complete roadmap for Chartered Accountancy. CA is a prestigious certification for accounting and financial professionals.', category: 'commerce', image_url: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=200&fit=crop&crop=center' }
+                    { title: 'Software Engineering', description: 'Design, develop, and maintain software systems. A highly rewarding career in the tech industry with infinite growth potential.', category: 'tech', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop' },
+                    { title: 'UI/UX Design', description: 'Blend creativity with psychology to design intuitive and beautiful digital experiences that users love.', category: 'design', image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop' },
+                    { title: 'Data Science', description: 'Extract meaningful insights from raw data. The sexiest job of the 21st century combining math, stats, and programming.', category: 'tech', image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop' }
                 ];
-                // Added slight delay to simulate network request
-                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                await new Promise(resolve => setTimeout(resolve, 600)); // simulate network
                 const container = document.getElementById('careers-container');
                 if (!container) return;
+                
                 container.innerHTML = '';
                 
                 careers.forEach((career, index) => {
-                    const delay = index + 1;
-                    const catClasses = career.category === 'science' ? 'bg-gradient-to-br from-blue-50 to-indigo-50' : 
-                                      (career.category === 'creative' ? 'bg-gradient-to-br from-pink-50 to-purple-50' : 'bg-gradient-to-br from-cyan-50 to-blue-50');
-                    const img = career.image_url || 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=200&fit=crop&crop=center';
-                    const escapedDesc = career.description ? career.description.replace(/'/g, "\\'") : '';
+                    const delay = (index + 1) * 100;
+                    const escapedDesc = career.description.replace(/'/g, "\\'");
                     
                     const card = `
-                    <div class="post-card bg-white p-6 rounded-xl shadow-md border border-gray-100 card-hover fade-in-up delay-${delay} ${catClasses} flex flex-col h-full">
-                        <div class="mb-5 relative overflow-hidden rounded-lg group">
-                            <img src="${img}" alt="${career.title}" class="w-full h-40 object-cover rounded-lg transition-transform duration-500 group-hover:scale-110 card-image">
-                            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <button class="bg-white text-gray-900 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition-colors shadow-lg transform scale-95 group-hover:scale-100" onclick="playVideo('${career.category}')">
-                                    <i class="fas fa-play mr-2 text-blue-600"></i>Watch Demo
+                    <div class="premium-card bg-white rounded-2xl flex flex-col h-full reveal-on-scroll delay-${delay}">
+                        <div class="card-image-container relative h-48 rounded-t-2xl">
+                            <img src="${career.image_url}" alt="${career.title}" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                                <span class="bg-white/20 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-md border border-white/20 uppercase tracking-wider">${career.category}</span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">${career.title}</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6 flex-grow">${career.description}</p>
+                            <div class="flex gap-3 mt-auto">
+                                <button class="flex-1 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 py-2.5 rounded-xl text-sm font-semibold transition-colors" onclick="showCareerDetails('${career.title}', '${escapedDesc}', '${career.image_url}')">
+                                    Read Overview
+                                </button>
+                                <button class="w-12 h-12 bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-xl flex items-center justify-center transition-colors" onclick="watchDemo()">
+                                    <i class="fas fa-play"></i>
                                 </button>
                             </div>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 text-gray-800">${career.title}</h3>
-                        <p class="text-gray-600 mb-6 flex-grow line-clamp-3">${career.description}</p>
-                        <button class="bg-white border-2 border-blue-600 text-blue-600 px-4 py-2.5 rounded-lg hover:bg-blue-600 hover:text-white transition-colors w-full font-semibold mt-auto" onclick="showCareerDetails('${career.title}', '${escapedDesc}', '${img}')">
-                            Explore Path <i class="fas fa-arrow-right ml-2"></i>
-                        </button>
                     </div>`;
                     container.innerHTML += card;
                 });
+                
+                // Re-initialize observer for new elements
+                initScrollAnimations();
+                
             } catch (e) {
-                console.error("Error fetching careers", e);
-                document.getElementById('careers-container').innerHTML = '<p class="col-span-3 text-center text-red-500">Failed to load careers.</p>';
+                document.getElementById('careers-container').innerHTML = '<p class="col-span-3 text-center text-red-500 font-medium">Unable to load career paths.</p>';
             }
         }
 
-        // Add loading class to body initially
-        document.body.classList.add('loading');
-
-        // Remove loading class after animations
-        setTimeout(() => {
-            document.body.classList.remove('loading');
-            document.body.classList.add('loaded');
-        }, 1000);
-        function filterSelection(c) {
-            let x = document.getElementsByClassName("post-card");
-            if (c == "all") c = "";
-            for (let i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-                if (x[i].className.indexOf(c) > -1) {
-                    x[i].style.display = "block";
-                }
-            }
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (!href || href === '#') {
-                    return;
-                }
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add scroll animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    // Add bounce effect for cards
-                    if (entry.target.classList.contains('post-card')) {
-                        entry.target.style.animation = 'bounceIn 0.8s ease-out';
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Observe all elements with fade-in-up class
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Add hover effects for cards
-        document.querySelectorAll('.post-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-10px) scale(1.02)';
-                card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-                card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-            });
-        });
-
-        // Add click ripple effect
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('btn-primary') || e.target.closest('.btn-primary')) {
-                const button = e.target.closest('.btn-primary');
-                const ripple = document.createElement('span');
-                const rect = button.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-
-                ripple.style.width = ripple.style.height = size + 'px';
-                ripple.style.left = x + 'px';
-                ripple.style.top = y + 'px';
-                ripple.classList.add('ripple');
-
-                button.appendChild(ripple);
-
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            }
-        });
-
-        // Mobile menu toggle (if needed in future)
-        function toggleMobileMenu() {
-            const menu = document.querySelector('.mobile-menu');
-            if (menu) {
-                menu.classList.toggle('hidden');
-            }
-        }
-
-        // Video Modal Functions
-        function playVideo(type) {
-            const modal = document.getElementById('videoModal');
-            const title = document.getElementById('videoTitle');
-            const frame = document.getElementById('videoFrame');
-
+        // --- Modals Logic ---
+        function openModal(modalId, contentId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(contentId);
             modal.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animating opacity
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            });
+        }
 
-            if (type === 'aerospace') {
-                title.textContent = 'Aerospace Engineering Career Path';
-                frame.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Replace with actual aerospace video
-            } else if (type === 'design') {
-                title.textContent = 'UI/UX Design Career Journey';
-                frame.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Replace with actual design video
-            } else if (type === 'commerce') {
-                title.textContent = 'CA Career Roadmap';
-                frame.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Replace with actual CA video
-            }
+        function closeModal(modalId, contentId) {
+            const modal = document.getElementById(modalId);
+            const content = document.getElementById(contentId);
+            modal.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // match transition duration
+        }
+
+        function watchDemo() {
+            const frame = document.getElementById('videoFrame');
+            frame.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Rickroll demo
+            openModal('videoModal', 'videoModalContent');
         }
 
         function closeVideoModal() {
-            const modal = document.getElementById('videoModal');
-            const frame = document.getElementById('videoFrame');
-            modal.classList.add('hidden');
-            frame.src = '';
+            closeModal('videoModal', 'videoModalContent');
+            setTimeout(() => { document.getElementById('videoFrame').src = ''; }, 300);
         }
 
-        // Mentor Modal Functions
-        function openMentorModal() {
-            const modal = document.getElementById('mentorModal');
-            modal.classList.remove('hidden');
-            modal.style.animation = 'modalSlideIn 0.3s ease-out';
-        }
+        function openMentorModal() { openModal('mentorModal', 'mentorModalContent'); }
+        function closeMentorModal() { closeModal('mentorModal', 'mentorModalContent'); }
 
-        function closeMentorModal() {
-            const modal = document.getElementById('mentorModal');
-            modal.classList.add('hidden');
+        function showCareerDetails(title, desc, img) {
+            document.getElementById('detailsTitle').textContent = title;
+            document.getElementById('detailsDesc').textContent = desc;
+            document.getElementById('detailsImg').src = img;
+            openModal('detailsModal', 'detailsModalContent');
         }
+        function closeDetailsModal() { closeModal('detailsModal', 'detailsModalContent'); }
 
-        // Mentor Registration form submission
+        // Close modals on outside click
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'videoModal') closeVideoModal();
+            if (e.target.id === 'mentorModal') closeMentorModal();
+            if (e.target.id === 'detailsModal') closeDetailsModal();
+        });
+
+        // Mentor Form Submit
         const mentorForm = document.getElementById('mentor-form');
         if (mentorForm) {
             mentorForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                const button = e.target.querySelector('button[type="submit"]');
-                const originalText = button.innerHTML;
+                const btn = e.target.querySelector('button[type="submit"]');
+                const ogText = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-circle-notch fa-spin mr-2"></i> Submitting...';
+                btn.disabled = true;
+                btn.classList.add('opacity-75');
+
+                // Mock API Delay
+                await new Promise(r => setTimeout(r, 1000));
                 
-                // Show loading state
-                button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...';
-                button.disabled = true;
-
-                const name = document.getElementById('mentor-name').value;
-                const email = document.getElementById('mentor-email').value;
-                const profession = document.getElementById('mentor-profession').value;
-                const experience = document.getElementById('mentor-experience').value;
-
-                try {
-                    // Mock mentors submission for GitHub Pages compatibility
-                    await new Promise(resolve => setTimeout(resolve, 800));
-                    
-                    alert('Thank you for your interest! We will review your application and get back to you within 2-3 business days.');
-                    closeMentorModal();
-                    e.target.reset();
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred. Please try again.');
-                } finally {
-                    button.innerHTML = originalText;
-                    button.disabled = false;
-                }
+                alert('Success! Your mentor application has been received. Our team will contact you shortly.');
+                closeMentorModal();
+                e.target.reset();
+                
+                btn.innerHTML = ogText;
+                btn.disabled = false;
+                btn.classList.remove('opacity-75');
             });
         }
-
-        // Learn More functionality
-        function showCareerDetails(title, description, imgUrl) {
-            const modal = document.getElementById('detailsModal');
-            document.getElementById('detailsTitle').textContent = title;
-            document.getElementById('detailsDesc').textContent = description;
-            const img = document.getElementById('detailsImg');
-            if(imgUrl && imgUrl !== 'null' && imgUrl !== 'undefined') {
-                img.src = imgUrl;
-                img.parentElement.style.display = 'block';
-            } else {
-                img.parentElement.style.display = 'none';
-            }
-            modal.classList.remove('hidden');
-        }
-
-        function closeDetailsModal() {
-            document.getElementById('detailsModal').classList.add('hidden');
-        }
-
-        // Close modals when clicking outside
-        document.addEventListener('click', function(event) {
-            const videoModal = document.getElementById('videoModal');
-            const mentorModal = document.getElementById('mentorModal');
-            const detailsModal = document.getElementById('detailsModal');
-
-            if (event.target === videoModal) {
-                closeVideoModal();
-            }
-            if (event.target === mentorModal) {
-                closeMentorModal();
-            }
-            if (event.target === detailsModal) {
-                closeDetailsModal();
-            }
-        });
-
-        // CTA Section Functions
-        function getStartedFree() {
-            // Redirect to signup page or show signup modal
-            window.location.href = 'login.html';
-        }
-
-        function watchDemo() {
-            // Show demo video modal
-            const modal = document.getElementById('videoModal');
-            const title = document.getElementById('videoTitle');
-            const frame = document.getElementById('videoFrame');
-
-            modal.classList.remove('hidden');
-            title.textContent = 'CareerPath Demo - Your Future Starts Here';
-            frame.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Replace with actual demo video
-        }
     </script>
-
 </body>
 </html>
