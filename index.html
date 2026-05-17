@@ -62,6 +62,9 @@
                 </div>
 
                 <div class="flex items-center gap-4" id="auth-section">
+                    <button class="hidden lg:block text-slate-600 font-semibold hover:text-indigo-600 transition-colors text-sm" onclick="openQuizModal()">
+                        <i class="fas fa-clipboard-list mr-1"></i> Career Quiz
+                    </button>
                     <a href="login.html" class="text-slate-600 hover:text-slate-900 font-medium text-sm transition-colors">Sign in</a>
                     <button class="btn-primary px-5 py-2.5 rounded-lg font-medium text-sm" onclick="openMentorModal()">
                         Become a Mentor
@@ -169,10 +172,11 @@
                     <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Explore Career Paths</h2>
                     <p class="text-slate-600">Dive deep into highly rewarding career trajectories. Discover what it takes to succeed.</p>
                 </div>
-                <div class="hidden md:block">
-                    <button class="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors flex items-center gap-2">
-                        View all paths <i class="fas fa-arrow-right"></i>
-                    </button>
+                <div class="hidden md:block w-72">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input type="text" id="careerSearch" placeholder="Search careers (e.g. Design)..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all text-sm" onkeyup="filterCareers()">
+                    </div>
                 </div>
             </div>
 
@@ -299,6 +303,69 @@
             </button>
             <div class="aspect-video bg-slate-100 rounded-xl overflow-hidden shadow-inner">
                 <iframe id="videoFrame" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chat-widget-btn" id="chatBtn" onclick="toggleChat()">
+        <i class="fas fa-robot"></i>
+    </div>
+    
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <div>
+                <h3 class="font-bold text-lg"><i class="fas fa-robot mr-2"></i>Career AI</h3>
+                <p class="text-xs text-indigo-200">Powered by Gemini</p>
+            </div>
+            <button onclick="toggleChat()" class="text-white hover:text-indigo-200"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="chat-message bot">
+                Hello! I am your AI Career Counselor. Ask me anything about careers, skills, or what to do after 12th! (e.g. "What skills are needed for Data Science?")
+            </div>
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Ask anything in any language..." onkeypress="handleChatKeyPress(event)">
+            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Career Assessment Quiz Modal -->
+    <div id="quizModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm flex items-center justify-center z-[60] hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-2xl p-8 max-w-lg w-full mx-4 relative shadow-2xl transform scale-95 transition-transform duration-300" id="quizModalContent">
+            <button onclick="closeQuizModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div id="quizIntro">
+                <div class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-brain text-2xl text-indigo-600"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-center text-slate-900 mb-2">AI Career Assessment</h3>
+                <p class="text-slate-500 text-center mb-8">Answer 3 quick questions to discover the best career path for your personality.</p>
+                <button class="w-full btn-primary py-3 rounded-xl font-semibold text-lg" onclick="startQuiz()">Start Quiz</button>
+            </div>
+
+            <div id="quizQuestions" class="hidden">
+                <h3 class="text-xl font-bold text-slate-900 mb-6" id="qText">Question 1</h3>
+                <div class="space-y-3" id="qOptions">
+                    <!-- Options injected by JS -->
+                </div>
+                <p class="text-slate-400 text-xs text-center mt-6" id="qProgress">Step 1 of 3</p>
+            </div>
+
+            <div id="quizResult" class="hidden text-center">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-check-circle text-4xl text-green-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">Your Perfect Career:</h3>
+                <h2 class="text-3xl font-extrabold text-indigo-600 mb-4" id="quizResultText">Software Engineer</h2>
+                <p class="text-slate-600 mb-8" id="quizResultDesc">Based on your answers, you have a highly analytical and problem-solving mindset.</p>
+                <button class="w-full btn-primary py-3 rounded-xl font-semibold text-lg" onclick="closeQuizModal()">Awesome!</button>
             </div>
         </div>
     </div>
@@ -487,6 +554,23 @@
             }
         }
 
+        // --- Career Search & Filter ---
+        function filterCareers() {
+            const query = document.getElementById('careerSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.premium-card');
+            
+            cards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const desc = card.querySelector('p').textContent.toLowerCase();
+                
+                if(title.includes(query) || desc.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
         // --- Modals Logic ---
         function openModal(modalId, contentId) {
             const modal = document.getElementById(modalId);
@@ -525,6 +609,14 @@
         function openMentorModal() { openModal('mentorModal', 'mentorModalContent'); }
         function closeMentorModal() { closeModal('mentorModal', 'mentorModalContent'); }
 
+        function openQuizModal() { 
+            document.getElementById('quizIntro').classList.remove('hidden');
+            document.getElementById('quizQuestions').classList.add('hidden');
+            document.getElementById('quizResult').classList.add('hidden');
+            openModal('quizModal', 'quizModalContent'); 
+        }
+        function closeQuizModal() { closeModal('quizModal', 'quizModalContent'); }
+
         function showCareerDetails(title, desc, img) {
             document.getElementById('detailsTitle').textContent = title;
             document.getElementById('detailsDesc').textContent = desc;
@@ -538,7 +630,185 @@
             if (e.target.id === 'videoModal') closeVideoModal();
             if (e.target.id === 'mentorModal') closeMentorModal();
             if (e.target.id === 'detailsModal') closeDetailsModal();
+            if (e.target.id === 'quizModal') closeQuizModal();
         });
+
+        // --- Interactive Career Quiz Logic ---
+        const quizData = [
+            {
+                q: "What do you enjoy doing in your free time?",
+                options: [
+                    { t: "Solving complex puzzles or coding", score: { tech: 2, design: 0, data: 1 } },
+                    { t: "Drawing, painting, or designing graphics", score: { tech: 0, design: 2, data: 0 } },
+                    { t: "Analyzing statistics or playing strategy games", score: { tech: 1, design: 0, data: 2 } }
+                ]
+            },
+            {
+                q: "How do you prefer to solve problems?",
+                options: [
+                    { t: "By breaking them down logically step-by-step", score: { tech: 2, design: 0, data: 1 } },
+                    { t: "By thinking visually and focusing on user experience", score: { tech: 0, design: 2, data: 0 } },
+                    { t: "By looking at past trends and data points", score: { tech: 0, design: 0, data: 2 } }
+                ]
+            },
+            {
+                q: "What sounds like the best work environment to you?",
+                options: [
+                    { t: "Building complex systems and applications", score: { tech: 2, design: 0, data: 0 } },
+                    { t: "Creating beautiful interfaces in Figma", score: { tech: 0, design: 2, data: 0 } },
+                    { t: "Working with massive datasets to predict the future", score: { tech: 0, design: 0, data: 2 } }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let scores = { tech: 0, design: 0, data: 0 };
+
+        function startQuiz() {
+            currentQuestion = 0;
+            scores = { tech: 0, design: 0, data: 0 };
+            document.getElementById('quizIntro').classList.add('hidden');
+            document.getElementById('quizQuestions').classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            document.getElementById('qText').textContent = q.q;
+            document.getElementById('qProgress').textContent = `Step ${currentQuestion + 1} of ${quizData.length}`;
+            
+            const optionsDiv = document.getElementById('qOptions');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option p-4 rounded-xl font-medium text-slate-700';
+                div.textContent = opt.t;
+                div.onclick = () => selectOption(opt.score);
+                optionsDiv.appendChild(div);
+            });
+        }
+
+        function selectOption(scoreObj) {
+            scores.tech += scoreObj.tech;
+            scores.design += scoreObj.design;
+            scores.data += scoreObj.data;
+            
+            currentQuestion++;
+            if(currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showQuizResult();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quizQuestions').classList.add('hidden');
+            document.getElementById('quizResult').classList.remove('hidden');
+            
+            let result = "Software Engineering";
+            let desc = "You have a highly analytical and problem-solving mindset.";
+            
+            if (scores.design > scores.tech && scores.design > scores.data) {
+                result = "UI/UX Design";
+                desc = "You have a strong creative vision and empathy for users.";
+            } else if (scores.data > scores.tech && scores.data > scores.design) {
+                result = "Data Science";
+                desc = "You love numbers, patterns, and making data-driven decisions.";
+            }
+            
+            document.getElementById('quizResultText').textContent = result;
+            document.getElementById('quizResultDesc').textContent = desc;
+        }
+
+        // --- Gemini AI Chatbot Logic ---
+        
+        // IMPORTANT: Replace this with your actual Google Gemini API Key from Google AI Studio!
+        const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; 
+        
+        let chatHistory = [];
+        const chatWindow = document.getElementById('chatWindow');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        function toggleChat() {
+            chatWindow.classList.toggle('active');
+            if(chatWindow.classList.contains('active')) {
+                chatInput.focus();
+            }
+        }
+
+        function handleChatKeyPress(e) {
+            if(e.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if(!text) return;
+            
+            // Add user message
+            appendMessage(text, 'user');
+            chatInput.value = '';
+            
+            // Show typing
+            typingIndicator.style.display = 'flex';
+            chatMessages.appendChild(typingIndicator); // move to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            if (GEMINI_API_KEY === "YOUR_API_KEY_HERE") {
+                setTimeout(() => {
+                    typingIndicator.style.display = 'none';
+                    appendMessage("⚠️ Please insert your Gemini API Key in the JavaScript code to enable the AI.", 'bot');
+                }, 1000);
+                return;
+            }
+
+            try {
+                // Call Gemini API
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [
+                            { role: "user", parts: [{ text: "You are a highly helpful career counselor for students. Answer concisely and professionally. Question: " + text }] }
+                        ]
+                    })
+                });
+                
+                const data = await response.json();
+                typingIndicator.style.display = 'none';
+                
+                if (data.candidates && data.candidates[0].content.parts[0].text) {
+                    appendMessage(data.candidates[0].content.parts[0].text, 'bot');
+                } else {
+                    appendMessage("Sorry, I couldn't process that. Please try again.", 'bot');
+                }
+            } catch (error) {
+                typingIndicator.style.display = 'none';
+                appendMessage("Error connecting to AI. Please check your internet connection.", 'bot');
+                console.error("Gemini Error:", error);
+            }
+        }
+
+        function appendMessage(text, sender) {
+            const div = document.createElement('div');
+            div.className = `chat-message ${sender}`;
+            
+            // Basic markdown parsing for bold and code blocks
+            let formattedText = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+                .replace(/`([^`]+)`/g, '<code>$1</code>');
+                
+            div.innerHTML = formattedText;
+            
+            // Insert before typing indicator
+            chatMessages.insertBefore(div, typingIndicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
 
         // Mentor Form Submit
         const mentorForm = document.getElementById('mentor-form');
