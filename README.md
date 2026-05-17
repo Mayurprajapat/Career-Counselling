@@ -59,7 +59,7 @@ Visit the live demo: [CareerPath Demo](https://your-github-username.github.io/ca
 
 ```
 careerpath/
-├── index2.html          # Main landing page
+├── index.html          # Main landing page
 ├── login.html           # Login/registration page
 ├── style.css           # Main stylesheet
 ├── server.js           # Backend server
@@ -105,7 +105,7 @@ careerpath/
 
 ### For GitHub Pages Deployment
 
-1. Update the repository name in `index2.html` meta tags:
+1. Update the repository name in `index.html` meta tags:
    ```html
    <link rel="canonical" href="https://your-github-username.github.io/careerpath/">
    ```

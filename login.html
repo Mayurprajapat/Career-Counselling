@@ -26,12 +26,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    <a href="index2.html" class="text-2xl font-bold text-blue-600 tracking-tight"><i class="fas fa-graduation-cap mr-2"></i>CareerPath</a>
+                    <a href="index.html" class="text-2xl font-bold text-blue-600 tracking-tight"><i class="fas fa-graduation-cap mr-2"></i>CareerPath</a>
                 </div>
                 <div class="hidden md:flex space-x-8 font-medium text-gray-600">
-                    <a href="index2.html" class="hover:text-blue-600">Home</a>
-                    <a href="index2.html#explore" class="hover:text-blue-600">Explore Careers</a>
-                    <a href="index2.html" class="hover:text-blue-600">Mentors</a>
+                    <a href="index.html" class="hover:text-blue-600">Home</a>
+                    <a href="index.html#explore" class="hover:text-blue-600">Explore Careers</a>
+                    <a href="index.html" class="hover:text-blue-600">Mentors</a>
                 </div>
                 <div class="flex space-x-4">
                     <button type="button" id="nav-home-btn" class="text-blue-600 font-semibold px-4 py-2">Home</button>
@@ -158,22 +158,17 @@
             const password = document.getElementById('password').value;
             
             try {
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password }),
-                });
+                // Mock login using localStorage for GitHub Pages compatibility
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const users = JSON.parse(localStorage.getItem('careerPathUsers') || '[]');
+                const user = users.find(u => u.email === email && u.password === password);
                 
-                const data = await response.json();
-                
-                if (response.ok) {
-                    localStorage.setItem('careerPathUser', JSON.stringify(data.user));
+                if (user) {
+                    localStorage.setItem('careerPathUser', JSON.stringify({ email: user.email }));
                     alert('Login successful!');
-                    window.location.href = 'index2.html';
+                    window.location.href = 'index.html';
                 } else {
-                    alert(data.error || 'Login failed');
+                    alert('Invalid credentials');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -197,22 +192,18 @@
             const password = document.getElementById('reg-password').value;
             
             try {
-                const response = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password }),
-                });
+                // Mock register using localStorage for GitHub Pages compatibility
+                await new Promise(resolve => setTimeout(resolve, 500));
+                const users = JSON.parse(localStorage.getItem('careerPathUsers') || '[]');
                 
-                const data = await response.json();
-                
-                if (response.ok) {
+                if (users.find(u => u.email === email)) {
+                    alert('Email already exists');
+                } else {
+                    users.push({ email, password });
+                    localStorage.setItem('careerPathUsers', JSON.stringify(users));
                     alert('Registration successful! Please login.');
                     registerCard.style.display = 'none';
                     loginCard.style.display = 'block';
-                } else {
-                    alert(data.error || 'Registration failed');
                 }
             } catch (error) {
                 console.error('Error:', error);
@@ -232,7 +223,7 @@
 
             if (homeBtn) {
                 homeBtn.addEventListener('click', () => {
-                    window.location.href = 'index2.html';
+                    window.location.href = 'index.html';
                 });
             }
 

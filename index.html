@@ -34,7 +34,7 @@
                 <i class="fas fa-graduation-cap mr-2 text-accent animate-wiggle"></i>CareerPath
             </span>
             <div class="hidden md:flex space-x-8 text-gray-600">
-                <a href="index2.html" class="hover:text-blue-600 transition-colors animate-fade-in-up delay-200">Home</a>
+                <a href="index.html" class="hover:text-blue-600 transition-colors animate-fade-in-up delay-200">Home</a>
                 <a href="#explore" class="hover:text-blue-600 transition-colors animate-fade-in-up delay-400">Explore Careers</a>
                 <a href="login.html" class="hover:text-blue-600 transition-colors animate-fade-in-up delay-600">Mentors</a>
             </div>
@@ -187,7 +187,7 @@
                 <div>
                     <h4 class="font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="index2.html" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
                         <li><a href="#explore" class="hover:text-white transition-colors">Explore Careers</a></li>
                         <li><a href="login.html" class="hover:text-white transition-colors">Mentors</a></li>
                         <li><a href="login.html" class="hover:text-white transition-colors">Login</a></li>
@@ -341,8 +341,14 @@
 
         async function fetchCareers() {
             try {
-                const res = await fetch('/api/careers');
-                const careers = await res.json();
+                // Mock careers for GitHub Pages
+                const careers = [
+                    { title: 'Aerospace Engineering', description: 'Learn how to join ISRO and explore the vast universe. Aerospace engineering involves designing and building aircraft, spacecraft, and related systems.', category: 'science', image_url: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=200&fit=crop&crop=center' },
+                    { title: 'UI/UX Design', description: 'Creative high-paying career in digital design. UI/UX design focuses on creating intuitive and visually appealing digital interfaces.', category: 'creative', image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=200&fit=crop&crop=center' },
+                    { title: 'Chartered Accountancy (CA)', description: 'Complete roadmap for Chartered Accountancy. CA is a prestigious certification for accounting and financial professionals.', category: 'commerce', image_url: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=200&fit=crop&crop=center' }
+                ];
+                // Added slight delay to simulate network request
+                await new Promise(resolve => setTimeout(resolve, 300));
                 const container = document.getElementById('careers-container');
                 if (!container) return;
                 container.innerHTML = '';
@@ -543,23 +549,12 @@
                 const experience = document.getElementById('mentor-experience').value;
 
                 try {
-                    const response = await fetch('/api/mentors', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ name, email, profession, experience: parseInt(experience) }),
-                    });
+                    // Mock mentors submission for GitHub Pages compatibility
+                    await new Promise(resolve => setTimeout(resolve, 800));
                     
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        alert('Thank you for your interest! We will review your application and get back to you within 2-3 business days.');
-                        closeMentorModal();
-                        e.target.reset();
-                    } else {
-                        alert(data.error || 'Submission failed');
-                    }
+                    alert('Thank you for your interest! We will review your application and get back to you within 2-3 business days.');
+                    closeMentorModal();
+                    e.target.reset();
                 } catch (error) {
                     console.error('Error:', error);
                     alert('An error occurred. Please try again.');
