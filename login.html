@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CareerPath</title>
+    <!-- Link to your custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Tailwind CSS for Professional Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .hero-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .card-hover:hover { transform: translateY(-5px); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="index2.html" class="text-2xl font-bold text-blue-600 tracking-tight"><i class="fas fa-graduation-cap mr-2"></i>CareerPath</a>
+                </div>
+                <div class="hidden md:flex space-x-8 font-medium text-gray-600">
+                    <a href="index2.html" class="hover:text-blue-600">Home</a>
+                    <a href="index2.html#explore" class="hover:text-blue-600">Explore Careers</a>
+                    <a href="index2.html" class="hover:text-blue-600">Mentors</a>
+                </div>
+                <div class="flex space-x-4">
+                    <button type="button" id="nav-home-btn" class="text-blue-600 font-semibold px-4 py-2">Home</button>
+                    <button type="button" id="nav-mentor-btn" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition shadow-lg">Join as Mentor</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Section -->
+    <section class="min-h-screen flex items-center justify-center py-12 px-4 login-container">
+        <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8 card-hover login-card">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h2>
+                <p class="text-gray-600">Sign in to your CareerPath account</p>
+            </div>
+            
+            <form class="space-y-6">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition login-input">
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" id="password" name="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition login-input">
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password text-sm text-blue-600 hover:text-blue-500">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition shadow-lg font-medium login-button">
+                    Sign In
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Don't have an account? <a href="#" id="show-register" class="text-blue-600 hover:text-blue-500 font-medium">Sign up</a></p>
+            </div>
+            
+            <div class="mt-8">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">Or continue with</span>
+                    </div>
+                </div>
+                
+                <div class="mt-6 grid grid-cols-2 gap-3">
+                    <button type="button" class="social-btn w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                        <i class="fab fa-google mr-2"></i> Google
+                    </button>
+                    <button type="button" class="social-btn w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition">
+                        <i class="fab fa-facebook mr-2"></i> Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register-card" class="max-w-md w-full bg-white rounded-xl shadow-lg p-8 card-hover login-card" style="display: none;">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h2>
+                <p class="text-gray-600">Join CareerPath today</p>
+            </div>
+            
+            <form id="register-form" class="space-y-6">
+                <div>
+                    <label for="reg-email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                    <input type="email" id="reg-email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition login-input">
+                </div>
+                
+                <div>
+                    <label for="reg-password" class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" id="reg-password" name="password" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition login-input">
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition shadow-lg font-medium login-button">
+                    Sign Up
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-gray-600">Already have an account? <a href="#" id="show-login" class="text-blue-600 hover:text-blue-500 font-medium">Sign in</a></p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const loginCard = document.querySelector('.max-w-md.w-full');
+        const registerCard = document.getElementById('register-card');
+        const showRegister = document.getElementById('show-register');
+        const showLogin = document.getElementById('show-login');
+
+        showRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginCard.style.display = 'none';
+            registerCard.style.display = 'block';
+        });
+
+        showLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerCard.style.display = 'none';
+            loginCard.style.display = 'block';
+        });
+
+        // Login form
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="btn-loading"></span> Signing in...';
+            submitBtn.classList.add('btn-loading');
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    localStorage.setItem('careerPathUser', JSON.stringify(data.user));
+                    alert('Login successful!');
+                    window.location.href = 'index2.html';
+                } else {
+                    alert(data.error || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.classList.remove('btn-loading');
+            }
+        });
+
+        // Register form
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<span class="btn-loading"></span> Creating account...';
+            submitBtn.classList.add('btn-loading');
+            
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert('Registration successful! Please login.');
+                    registerCard.style.display = 'none';
+                    loginCard.style.display = 'block';
+                } else {
+                    alert(data.error || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.classList.remove('btn-loading');
+            }
+        });
+
+        // Additional button behavior for navigation and placeholder actions
+        window.addEventListener('DOMContentLoaded', () => {
+            const homeBtn = document.getElementById('nav-home-btn');
+            const mentorBtn = document.getElementById('nav-mentor-btn');
+            const socialButtons = document.querySelectorAll('.social-btn');
+            const forgotPassword = document.querySelector('.forgot-password');
+
+            if (homeBtn) {
+                homeBtn.addEventListener('click', () => {
+                    window.location.href = 'index2.html';
+                });
+            }
+
+            if (mentorBtn) {
+                mentorBtn.addEventListener('click', () => {
+                    showRegister.click();
+                });
+            }
+
+            socialButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Social login is not active yet. Please use email and password to continue.');
+                });
+            });
+
+            if (forgotPassword) {
+                forgotPassword.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Please contact info@careerpath.com if you forgot your password.');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
