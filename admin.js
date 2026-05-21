@@ -37,7 +37,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fade in body once authentication is successful
     document.body.classList.add('loaded');
+    initCursorGlow();
 });
+
+// --- Interactive Mouse Glow Tracker ---
+function initCursorGlow() {
+    if (window.innerWidth > 768) {
+        const glow = document.createElement('div');
+        glow.className = 'cursor-glow';
+        document.body.appendChild(glow);
+        
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+    }
+}
 
 // Tab switching
 function switchTab(tab) {

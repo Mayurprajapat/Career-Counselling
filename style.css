@@ -910,3 +910,123 @@ section {
     color: white;
     box-shadow: var(--shadow-indigo);
 }
+
+/* ==========================================
+   ADVANCED PREMIUM STYLING & INTERACTIONS
+   ========================================== */
+
+/* Cursor Glow Effect */
+.cursor-glow {
+    position: fixed;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, rgba(139, 92, 246, 0.04) 50%, rgba(99, 102, 241, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease;
+    mix-blend-mode: screen;
+}
+
+/* Premium Dynamic Mesh Background */
+.bg-mesh-gradient {
+    background-image: 
+        radial-gradient(at 5% 5%, rgba(99, 102, 241, 0.04) 0px, transparent 40%), 
+        radial-gradient(at 95% 5%, rgba(139, 92, 246, 0.04) 0px, transparent 40%), 
+        radial-gradient(at 50% 95%, rgba(236, 72, 153, 0.03) 0px, transparent 45%);
+}
+
+/* Glowing Glassmorphism Card */
+.glass-card-glow {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: var(--radius-xl);
+    transition: var(--transition-spring);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+}
+
+.glass-card-glow:hover {
+    transform: translateY(-8px) scale(1.01);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(99, 102, 241, 0.35);
+    box-shadow: 0 30px 60px -15px rgba(99, 102, 241, 0.12), 
+                0 0 40px -5px rgba(99, 102, 241, 0.05);
+}
+
+/* Dynamic Interactive Buttons */
+.btn-premium-interactive {
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 50%, #7c3aed 100%);
+    background-size: 200% auto;
+    color: white;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--shadow-indigo);
+    border: none;
+}
+
+.btn-premium-interactive:hover {
+    background-position: right center;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 20px 35px rgba(99, 102, 241, 0.35);
+}
+
+.btn-premium-interactive:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+/* Glow Borders on Hover */
+.premium-hover-border {
+    position: relative;
+    border: 2px solid var(--border-color);
+    transition: var(--transition-smooth);
+}
+
+.premium-hover-border:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+}
+
+/* Chat Bot Avatar Pulsing Glow */
+.chat-avatar-glow {
+    position: relative;
+}
+
+.chat-avatar-glow::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, #6366f1, #a855f7);
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(4px);
+    animation: avatarPulse 2s infinite alternate;
+}
+
+@keyframes avatarPulse {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    100% { transform: scale(1.05); opacity: 0.9; }
+}
+
+/* Floating Animations */
+.animate-float-slow {
+    animation: floatSlow 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: floatSlow 8s ease-in-out infinite;
+    animation-delay: 4s;
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(2deg); }
+}
+
+/* Smooth Input Focus Indicator */
+.premium-focus-glow:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    background-color: var(--white);
+}

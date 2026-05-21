@@ -40,7 +40,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-white">
+<body class="bg-white bg-mesh-gradient">
 
     <div class="min-h-screen flex">
         <!-- Left Panel: Graphic/Brand (Hidden on Mobile) -->
@@ -177,7 +177,22 @@
         // Page loading animation
         window.addEventListener('load', () => {
             document.body.classList.add('loaded');
+            initCursorGlow();
         });
+
+        // --- Interactive Mouse Glow Tracker ---
+        function initCursorGlow() {
+            if (window.innerWidth > 768) {
+                const glow = document.createElement('div');
+                glow.className = 'cursor-glow';
+                document.body.appendChild(glow);
+                
+                document.addEventListener('mousemove', (e) => {
+                    glow.style.left = e.clientX + 'px';
+                    glow.style.top = e.clientY + 'px';
+                });
+            }
+        }
 
         const loginSection = document.getElementById('login-section');
         const registerSection = document.getElementById('register-section');
