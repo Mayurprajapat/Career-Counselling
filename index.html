@@ -656,9 +656,68 @@
 
         // --- Fetch & Render Careers ---
         async function fetchCareers() {
+            const fallbackCareers = [
+                {
+                    title: 'Software Engineering',
+                    description: 'Design, develop, and maintain software systems. A highly rewarding career in the tech industry with infinite growth potential.',
+                    category: 'tech',
+                    image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop',
+                    video_url: 'https://www.youtube.com/embed/z0yElglKNls'
+                },
+                {
+                    title: 'UI/UX Design',
+                    description: 'Creative high-paying career in digital design. UI/UX design focuses on creating intuitive, stunning, and user-friendly visual interfaces.',
+                    category: 'design',
+                    image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop',
+                    video_url: 'https://www.youtube.com/embed/55NvZjUZIO8'
+                },
+                {
+                    title: 'Data Science',
+                    description: 'Extract meaningful insights from raw data. Combine mathematics, statistics, and programming to drive strategic business decisions.',
+                    category: 'tech',
+                    image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+                    video_url: 'https://www.youtube.com/embed/ua-CiDNNj30'
+                },
+                {
+                    title: 'Chartered Accountancy (CA)',
+                    description: 'Prestigious career in finance, taxation, and auditing. Navigate complex financial laws and assist corporate tax strategies.',
+                    category: 'commerce',
+                    image_url: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop',
+                    video_url: 'https://www.youtube.com/embed/p1pXy4sPki8'
+                },
+                {
+                    title: 'Aerospace Engineering',
+                    description: 'Design high-performance aircraft and spacecraft. Discover the path to joining top global space organizations like ISRO and NASA.',
+                    category: 'science',
+                    image_url: 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=600&h=400&fit=crop',
+                    video_url: 'https://www.youtube.com/embed/1kH3iZ1iX1I'
+                },
+                {
+                    title: 'Cybersecurity Specialist',
+                    description: 'Protect networks, systems, and programs from digital attacks. A high-demand defensive career in an increasingly connected world.',
+                    category: 'tech',
+                    image_url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop',
+                    video_url: 'https://www.youtube.com/embed/z5nc9MDbvEc'
+                },
+                {
+                    title: 'Product Management',
+                    description: 'Lead the lifecycle of a product from conception to launch. Bridge the gap between engineering, design, and business goals.',
+                    category: 'business',
+                    image_url: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&h=400&fit=crop',
+                    video_url: 'https://www.youtube.com/embed/HscVz4sXfHk'
+                }
+            ];
+
             try {
-                const response = await fetch('/api/careers');
-                const careers = await response.json();
+                let careers = fallbackCareers;
+                try {
+                    const response = await fetch('/api/careers');
+                    if (response.ok) {
+                        careers = await response.json();
+                    }
+                } catch (apiError) {
+                    console.log("Backend offline, loading premium static fallback careers.");
+                }
                 
                 const container = document.getElementById('careers-container');
                 if (!container) return;
@@ -923,8 +982,23 @@
                 }
             } catch (error) {
                 typingIndicator.style.display = 'none';
-                appendMessage("Error connecting to AI Counselor. Please make sure the backend server is running.", 'bot');
-                console.error("Gemini Error:", error);
+                
+                // Smart Static Fallback Responses for GitHub Pages
+                const lowerText = text.toLowerCase();
+                let reply = "";
+                
+                if (lowerText.includes("tech") || lowerText.includes("software") || lowerText.includes("code") || lowerText.includes("program")) {
+                    reply = "💻 **Career AI (Static Mode):**\n\nSoftware Engineering is an incredible field! To succeed:\n1. Learn a programming language thoroughly (JavaScript, Python, or Java).\n2. Build real projects and host them on GitHub.\n3. Practice DSA (Data Structures & Algorithms).\n\n*Note: To unlock the live Gemini AI Chat, run the local server (`npm run dev`) or deploy the backend to Render!*";
+                } else if (lowerText.includes("design") || lowerText.includes("ui") || lowerText.includes("ux") || lowerText.includes("figma")) {
+                    reply = "🎨 **Career AI (Static Mode):**\n\nUI/UX Design is a high-paying, highly creative field! Focus on:\n1. Mastering design tools like Figma.\n2. Understanding user psychology and wireframing.\n3. Creating 2-3 detailed case studies for your portfolio.\n\n*Note: To unlock the live Gemini AI Chat, run the local server (`npm run dev`) or deploy the backend to Render!*";
+                } else if (lowerText.includes("data") || lowerText.includes("science") || lowerText.includes("analysis")) {
+                    reply = "📊 **Career AI (Static Mode):**\n\nData Science is growing rapidly! Best steps:\n1. Master Python, SQL, and Excel.\n2. Learn statistics and visualization libraries (Pandas, Seaborn).\n3. Practice clean storytelling with real-world datasets.\n\n*Note: To unlock the live Gemini AI Chat, run the local server (`npm run dev`) or deploy the backend to Render!*";
+                } else {
+                    reply = "🚀 **Welcome to CareerPath AI (Static Mode)!**\n\nI can help you explore tech, design, data science, and business careers! \n\n*Tip: Try asking me 'What should I do for a tech career?' or 'Tell me about UI/UX!'. To enable the fully active dynamic Gemini AI, run your backend Express server (`npm start`) or host it on Render.*";
+                }
+                
+                appendMessage(reply, 'bot');
+                console.warn("Backend offline, running static client counselor fallback.", error);
             }
         }
 
