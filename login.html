@@ -199,7 +199,7 @@
             loginSection.classList.add('animate-fade-up');
         });
 
-        // Login Logic
+        // Login Logic - Using Backend API
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
@@ -211,27 +211,35 @@
             const password = document.getElementById('password').value;
 
             try {
-                // Mock API Delay
-                await new Promise(r => setTimeout(r, 600));
+                const response = await fetch('http://localhost:3000/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
                 
-                const users = JSON.parse(localStorage.getItem('careerPathUsers') || '[]');
-                const user = users.find(u => u.email === email && u.password === password);
+                const data = await response.json();
                 
-                if (user) {
-                    localStorage.setItem('careerPathUser', JSON.stringify({ email: user.email }));
-                    window.location.href = 'index.html';
+                if (response.ok) {
+                    localStorage.setItem('careerPathUser', JSON.stringify(data.user));
+                    localStorage.setItem('careerPathLoginTime', Date.now().toString());
+                    if (data.user.isAdmin) {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'index.html';
+                    }
                 } else {
-                    alert('Invalid credentials. Please check your email and password.');
+                    alert(data.error || 'Invalid credentials. Please check your email and password.');
                 }
             } catch(e) {
-                console.error(e);
+                console.error('Login error:', e);
+                alert('Error connecting to server. Make sure it is running on http://localhost:3000');
             } finally {
                 btn.innerHTML = ogText;
                 btn.disabled = false;
             }
         });
 
-        // Register Logic
+        // Register Logic - Using Backend API
         document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
@@ -243,23 +251,26 @@
             const password = document.getElementById('reg-password').value;
 
             try {
-                // Mock API Delay
-                await new Promise(r => setTimeout(r, 600));
+                const response = await fetch('http://localhost:3000/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
                 
-                const users = JSON.parse(localStorage.getItem('careerPathUsers') || '[]');
-                if (users.find(u => u.email === email)) {
-                    alert('An account with this email already exists.');
-                } else {
-                    users.push({ email, password });
-                    localStorage.setItem('careerPathUsers', JSON.stringify(users));
+                const data = await response.json();
+                
+                if (response.ok) {
                     alert('Account created successfully! You can now log in.');
                     showLoginBtn.click();
                     // Pre-fill email
                     document.getElementById('email').value = email;
                     document.getElementById('password').value = '';
+                } else {
+                    alert(data.error || 'Registration failed. Please try again.');
                 }
             } catch(e) {
-                console.error(e);
+                console.error('Registration error:', e);
+                alert('Error connecting to server. Make sure it is running on http://localhost:3000');
             } finally {
                 btn.innerHTML = ogText;
                 btn.disabled = false;

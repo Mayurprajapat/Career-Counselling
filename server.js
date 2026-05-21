@@ -1,8 +1,13 @@
+require('dotenv').config();
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
+// Initialize Gemini API (API key should be in .env file)
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,7 +35,24 @@ function createTables() {
         email TEXT UNIQUE NOT NULL,
         password TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    )`);
+    )`, () => {
+        // Seed default admin user if configured in env variables
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+        if (adminEmail && adminPassword) {
+            db.get("SELECT COUNT(*) as count FROM users WHERE email = ?", [adminEmail], (err, row) => {
+                if (!err && row.count === 0) {
+                    db.run("INSERT INTO users (email, password) VALUES (?, ?)", [adminEmail, adminPassword], (err) => {
+                        if (err) {
+                            console.error('Error seeding admin user:', err.message);
+                        } else {
+                            console.log(`Default admin user created from environment variables: ${adminEmail}`);
+                        }
+                    });
+                }
+            });
+        }
+    });
 
     db.run(`CREATE TABLE IF NOT EXISTS careers (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -64,14 +86,151 @@ function createTables() {
 
 // Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index2.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// API Routes
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
+// API Routes - Admin Panel
+app.get('/api/admin/users', (req, res) => {
+    db.get('SELECT COUNT(*) as count FROM users', [], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        
+        db.all('SELECT id, email, created_at FROM users LIMIT 20', [], (err, users) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res.json({ count: row.count, users: users || [] });
+        });
+    });
+});
+
+app.get('/api/admin/careers', (req, res) => {
+    db.get('SELECT COUNT(*) as count FROM careers', [], (err, row) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        
+        db.all('SELECT id, title, description, category, image_url FROM careers', [], (err, careers) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            res.json({ count: row.count, careers: careers || [] });
+        });
+    });
+});
+
+app.get('/api/admin/careers/:id', (req, res) => {
+    db.get('SELECT * FROM careers WHERE id = ?', [req.params.id], (err, career) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (!career) {
+            return res.status(404).json({ error: 'Career not found' });
+        }
+        res.json({ career });
+    });
+});
+
+app.post('/api/admin/careers', (req, res) => {
+    const { title, description, category, image_url } = req.body;
+    
+    if (!title || !description || !category) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
+    const stmt = db.prepare('INSERT INTO careers (title, description, category, image_url) VALUES (?, ?, ?, ?)');
+    stmt.run(title, description, category, image_url || '', function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json({ 
+            message: 'Career added successfully',
+            id: this.lastID 
+        });
+    });
+});
+
+app.put('/api/admin/careers/:id', (req, res) => {
+    const { title, description, category, image_url } = req.body;
+    
+    if (!title || !description || !category) {
+        return res.status(400).json({ error: 'Missing required fields' });
+    }
+    
+    db.run(
+        'UPDATE careers SET title = ?, description = ?, category = ?, image_url = ? WHERE id = ?',
+        [title, description, category, image_url || '', req.params.id],
+        function(err) {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            if (this.changes === 0) {
+                return res.status(404).json({ error: 'Career not found' });
+            }
+            res.json({ message: 'Career updated successfully' });
+        }
+    );
+});
+
+app.delete('/api/admin/careers/:id', (req, res) => {
+    db.run('DELETE FROM careers WHERE id = ?', [req.params.id], function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'Career not found' });
+        }
+        res.json({ message: 'Career deleted successfully' });
+    });
+});
+
+app.delete('/api/admin/users/:id', (req, res) => {
+    db.run('DELETE FROM users WHERE id = ?', [req.params.id], function(err) {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        if (this.changes === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        res.json({ message: 'User deleted successfully' });
+    });
+});
+
+app.get('/api/admin/activities', (req, res) => {
+    const activities = [
+        { 
+            message: 'New user registered', 
+            timestamp: new Date(Date.now() - 3600000).toISOString()
+        },
+        { 
+            message: 'Career listing updated', 
+            timestamp: new Date(Date.now() - 7200000).toISOString()
+        },
+        { 
+            message: 'System started successfully', 
+            timestamp: new Date(Date.now() - 86400000).toISOString()
+        }
+    ];
+    res.json({ activities });
+});
+
+app.get('/api/admin/mentors', (req, res) => {
+    db.all('SELECT * FROM mentors', [], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: 'Database error' });
+        }
+        res.json(rows);
+    });
+});
 app.post('/api/register', (req, res) => {
     const { email, password } = req.body;
 
@@ -102,7 +261,8 @@ app.post('/api/login', (req, res) => {
             return res.status(500).json({ error: 'Database error' });
         }
         if (row) {
-            res.json({ message: 'Login successful', user: { id: row.id, email: row.email } });
+            const isAdmin = process.env.ADMIN_EMAIL && row.email === process.env.ADMIN_EMAIL;
+            res.json({ message: 'Login successful', user: { id: row.id, email: row.email, isAdmin: !!isAdmin } });
         } else {
             res.status(401).json({ error: 'Invalid credentials' });
         }
