@@ -16,18 +16,18 @@
                 extend: {
                     colors: {
                         indigo: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#312e81',
+                            50: 'rgba(250, 204, 21, 0.1)',
+                            100: 'rgba(250, 204, 21, 0.15)',
+                            500: '#facc15',
+                            600: '#eab308',
+                            700: '#ca8a04',
+                            900: '#854d0e',
                         },
                         slate: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                            50: '#18181b',
+                            100: '#27272a',
+                            800: '#a1a1aa',
+                            900: '#f4f4f5',
                         }
                     }
                 }
@@ -37,6 +37,104 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Force Ultimate Futuristic Black & Yellow Cyberpunk Contrast */
+        body {
+            background-color: #09090b !important;
+            background-image: 
+                radial-gradient(at 5% 5%, rgba(250, 204, 21, 0.05) 0px, transparent 40%), 
+                radial-gradient(at 95% 5%, rgba(202, 138, 4, 0.04) 0px, transparent 40%), 
+                radial-gradient(at 50% 95%, rgba(250, 204, 21, 0.03) 0px, transparent 45%) !important;
+            color: #f4f4f5 !important;
+        }
+        
+        /* Navigation & Logo */
+        nav#navbar {
+            background-color: rgba(9, 9, 11, 0.85) !important;
+            backdrop-filter: blur(12px) !important;
+            -webkit-backdrop-filter: blur(12px) !important;
+            border-bottom: 1px solid rgba(250, 204, 21, 0.15) !important;
+        }
+        
+        span[class*="text-slate-900"], .text-slate-900 {
+            color: #ffffff !important;
+        }
+        
+        .nav-link, a.text-slate-600 {
+            color: #a1a1aa !important;
+        }
+        
+        .nav-link:hover, a.text-slate-600:hover {
+            color: #facc15 !important;
+        }
+        
+        /* Hero Heading & Desc */
+        h1, h2, h3, h4, h5, h6 {
+            color: #ffffff !important;
+        }
+        
+        p.text-slate-600, .text-slate-600 {
+            color: #a1a1aa !important;
+        }
+        
+        /* Glass Containers */
+        .bg-white\/50, .bg-white\/30, .bg-white\/20, .bg-white\/10 {
+            background-color: rgba(24, 24, 27, 0.7) !important;
+            border-color: rgba(250, 204, 21, 0.2) !important;
+        }
+        
+        /* Careers Cards */
+        .glass-card-glow {
+            background: rgba(24, 24, 27, 0.8) !important;
+            border: 1px solid rgba(250, 204, 21, 0.1) !important;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
+        }
+        
+        .glass-card-glow:hover {
+            border-color: rgba(250, 204, 21, 0.4) !important;
+            box-shadow: 0 20px 40px -10px rgba(250, 204, 21, 0.15) !important;
+        }
+        
+        /* Overview Modal and other standard light panels */
+        .bg-white {
+            background-color: #18181b !important;
+            border-color: #27272a !important;
+        }
+        
+        /* Fix read overview button illegibility */
+        button.bg-slate-50, .bg-slate-50 {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            color: #facc15 !important;
+            border: 1px solid rgba(250, 204, 21, 0.2) !important;
+        }
+        
+        button.bg-slate-50:hover {
+            background-color: rgba(250, 204, 21, 0.1) !important;
+            border-color: #facc15 !important;
+            color: #000000 !important;
+        }
+        
+        /* Success banner */
+        .bg-indigo-600 {
+            background-color: #facc15 !important;
+            color: #000000 !important;
+        }
+        
+        .bg-indigo-600 h2, .bg-indigo-600 p {
+            color: #000000 !important;
+        }
+        
+        .bg-indigo-600 button {
+            background-color: #000000 !important;
+            color: #facc15 !important;
+            border: 1px solid #facc15 !important;
+        }
+        
+        .bg-indigo-600 button:hover {
+            background-color: #1c1917 !important;
+        }
+    </style>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -559,14 +657,9 @@
         // --- Fetch & Render Careers ---
         async function fetchCareers() {
             try {
-                // Hardcoded presentation data
-                const careers = [
-                    { title: 'Software Engineering', description: 'Design, develop, and maintain software systems. A highly rewarding career in the tech industry with infinite growth potential.', category: 'tech', image_url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop' },
-                    { title: 'UI/UX Design', description: 'Blend creativity with psychology to design intuitive and beautiful digital experiences that users love.', category: 'design', image_url: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop' },
-                    { title: 'Data Science', description: 'Extract meaningful insights from raw data. The sexiest job of the 21st century combining math, stats, and programming.', category: 'tech', image_url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop' }
-                ];
+                const response = await fetch('/api/careers');
+                const careers = await response.json();
                 
-                await new Promise(resolve => setTimeout(resolve, 600)); // simulate network
                 const container = document.getElementById('careers-container');
                 if (!container) return;
                 
@@ -577,12 +670,12 @@
                     const escapedDesc = career.description.replace(/'/g, "\\'");
                     
                     const card = `
-                    <div class="premium-card bg-white rounded-2xl flex flex-col h-full reveal-on-scroll delay-${delay}">
+                    <div class="glass-card-glow rounded-2xl flex flex-col h-full reveal-on-scroll delay-${delay}">
                         <div class="card-image-container relative h-48 rounded-t-2xl">
                             <img src="${career.image_url}" alt="${career.title}" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
                             <div class="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                                <span class="bg-white/20 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-md border border-white/20 uppercase tracking-wider">${career.category}</span>
+                                <span class="bg-indigo-600 backdrop-blur-md text-white text-xs font-semibold px-2.5 py-1 rounded-md border border-white/20 uppercase tracking-wider">${career.category}</span>
                             </div>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
@@ -592,7 +685,7 @@
                                 <button class="flex-1 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 py-2.5 rounded-xl text-sm font-semibold transition-colors" onclick="showCareerDetails('${career.title}', '${escapedDesc}', '${career.image_url}')">
                                     Read Overview
                                 </button>
-                                <button class="w-12 h-12 bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-xl flex items-center justify-center transition-colors" onclick="watchDemo()">
+                                <button class="w-12 h-12 bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white rounded-xl flex items-center justify-center transition-colors" onclick="watchDemo('${career.video_url}')">
                                     <i class="fas fa-play"></i>
                                 </button>
                             </div>
@@ -612,7 +705,7 @@
         // --- Career Search & Filter ---
         function filterCareers() {
             const query = document.getElementById('careerSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('.premium-card');
+            const cards = document.querySelectorAll('.glass-card-glow');
             
             cards.forEach(card => {
                 const title = card.querySelector('h3').textContent.toLowerCase();
@@ -650,9 +743,9 @@
             }, 300); // match transition duration
         }
 
-        function watchDemo() {
+        function watchDemo(videoUrl) {
             const frame = document.getElementById('videoFrame');
-            frame.src = 'https://www.youtube.com/embed/dQw4w9WgXcQ'; // Rickroll demo
+            frame.src = videoUrl || 'https://www.youtube.com/embed/dQw4w9WgXcQ'; 
             openModal('videoModal', 'videoModalContent');
         }
 
@@ -778,9 +871,6 @@
 
         // --- Gemini AI Chatbot Logic ---
         
-        // IMPORTANT: Replace this with your actual Google Gemini API Key from Google AI Studio!
-        const GEMINI_API_KEY = "YOUR_API_KEY_HERE"; 
-        
         let chatHistory = [];
         const chatWindow = document.getElementById('chatWindow');
         const chatMessages = document.getElementById('chatMessages');
@@ -813,37 +903,27 @@
             chatMessages.appendChild(typingIndicator); // move to bottom
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            if (GEMINI_API_KEY === "YOUR_API_KEY_HERE") {
-                setTimeout(() => {
-                    typingIndicator.style.display = 'none';
-                    appendMessage("⚠️ Please insert your Gemini API Key in the JavaScript code to enable the AI.", 'bot');
-                }, 1000);
-                return;
-            }
-
             try {
-                // Call Gemini API
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                // Call secure backend proxy Gemini API
+                const response = await fetch('/api/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [
-                            { role: "user", parts: [{ text: "You are a highly helpful career counselor for students. Answer concisely and professionally. Question: " + text }] }
-                        ]
-                    })
+                    body: JSON.stringify({ message: text })
                 });
                 
                 const data = await response.json();
                 typingIndicator.style.display = 'none';
                 
-                if (data.candidates && data.candidates[0].content.parts[0].text) {
-                    appendMessage(data.candidates[0].content.parts[0].text, 'bot');
+                if (data.response) {
+                    appendMessage(data.response, 'bot');
+                } else if (data.error) {
+                    appendMessage("⚠️ Error: " + data.error, 'bot');
                 } else {
                     appendMessage("Sorry, I couldn't process that. Please try again.", 'bot');
                 }
             } catch (error) {
                 typingIndicator.style.display = 'none';
-                appendMessage("Error connecting to AI. Please check your internet connection.", 'bot');
+                appendMessage("Error connecting to AI Counselor. Please make sure the backend server is running.", 'bot');
                 console.error("Gemini Error:", error);
             }
         }

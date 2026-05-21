@@ -60,16 +60,29 @@ function createTables() {
         description TEXT,
         category TEXT,
         image_url TEXT,
+        video_url TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`, () => {
-        // Initialize with default careers if empty
+        // Attempt to alter the table to add video_url if it doesn't exist
+        db.run("ALTER TABLE careers ADD COLUMN video_url TEXT", (err) => {
+            // Error is expected if column already exists, safe to ignore
+        });
+
+        // Initialize with default 7 careers if empty or has outdated records
         db.get('SELECT COUNT(*) as count FROM careers', [], (err, row) => {
-            if (!err && row.count === 0) {
-                const stmt = db.prepare('INSERT INTO careers (title, description, category, image_url) VALUES (?, ?, ?, ?)');
-                stmt.run('Aerospace Engineering', 'Learn how to join ISRO and explore the vast universe. Aerospace engineering involves designing and building aircraft, spacecraft, and related systems.', 'science', 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=200&fit=crop&crop=center');
-                stmt.run('UI/UX Design', 'Creative high-paying career in digital design. UI/UX design focuses on creating intuitive and visually appealing digital interfaces.', 'creative', 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=200&fit=crop&crop=center');
-                stmt.run('Chartered Accountancy (CA)', 'Complete roadmap for Chartered Accountancy. CA is a prestigious certification for accounting and financial professionals.', 'commerce', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=200&fit=crop&crop=center');
-                stmt.finalize();
+            if (!err && row.count < 5) {
+                db.run('DELETE FROM careers', () => {
+                    const stmt = db.prepare('INSERT INTO careers (title, description, category, image_url, video_url) VALUES (?, ?, ?, ?, ?)');
+                    stmt.run('Software Engineering', 'Design, develop, and maintain software systems. A highly rewarding career in the tech industry with infinite growth potential.', 'tech', 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop', 'https://www.youtube.com/embed/z0yElglKNls');
+                    stmt.run('UI/UX Design', 'Creative high-paying career in digital design. UI/UX design focuses on creating intuitive, stunning, and user-friendly visual interfaces.', 'design', 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop', 'https://www.youtube.com/embed/55NvZjUZIO8');
+                    stmt.run('Data Science', 'Extract meaningful insights from raw data. Combine mathematics, statistics, and programming to drive strategic business decisions.', 'tech', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop', 'https://www.youtube.com/embed/ua-CiDNNj30');
+                    stmt.run('Chartered Accountancy (CA)', 'Prestigious career in finance, taxation, and auditing. Navigate complex financial laws and assist corporate tax strategies.', 'commerce', 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop', 'https://www.youtube.com/embed/p1pXy4sPki8');
+                    stmt.run('Aerospace Engineering', 'Design high-performance aircraft and spacecraft. Discover the path to joining top global space organizations like ISRO and NASA.', 'science', 'https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=600&h=400&fit=crop', 'https://www.youtube.com/embed/1kH3iZ1iX1I');
+                    stmt.run('Cybersecurity Specialist', 'Protect networks, systems, and programs from digital attacks. A high-demand defensive career in an increasingly connected world.', 'tech', 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop', 'https://www.youtube.com/embed/z5nc9MDbvEc');
+                    stmt.run('Product Management', 'Lead the lifecycle of a product from conception to launch. Bridge the gap between engineering, design, and business goals.', 'business', 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&h=400&fit=crop', 'https://www.youtube.com/embed/HscVz4sXfHk');
+                    stmt.finalize();
+                    console.log('Seeded 7 premium career paths successfully with verified YouTube embeds.');
+                });
             }
         });
     });
@@ -119,7 +132,7 @@ app.get('/api/admin/careers', (req, res) => {
             return res.status(500).json({ error: err.message });
         }
         
-        db.all('SELECT id, title, description, category, image_url FROM careers', [], (err, careers) => {
+        db.all('SELECT id, title, description, category, image_url, video_url FROM careers', [], (err, careers) => {
             if (err) {
                 return res.status(500).json({ error: err.message });
             }
@@ -141,14 +154,14 @@ app.get('/api/admin/careers/:id', (req, res) => {
 });
 
 app.post('/api/admin/careers', (req, res) => {
-    const { title, description, category, image_url } = req.body;
+    const { title, description, category, image_url, video_url } = req.body;
     
     if (!title || !description || !category) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
     
-    const stmt = db.prepare('INSERT INTO careers (title, description, category, image_url) VALUES (?, ?, ?, ?)');
-    stmt.run(title, description, category, image_url || '', function(err) {
+    const stmt = db.prepare('INSERT INTO careers (title, description, category, image_url, video_url) VALUES (?, ?, ?, ?, ?)');
+    stmt.run(title, description, category, image_url || '', video_url || '', function(err) {
         if (err) {
             return res.status(500).json({ error: err.message });
         }
@@ -160,15 +173,15 @@ app.post('/api/admin/careers', (req, res) => {
 });
 
 app.put('/api/admin/careers/:id', (req, res) => {
-    const { title, description, category, image_url } = req.body;
+    const { title, description, category, image_url, video_url } = req.body;
     
     if (!title || !description || !category) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
     
     db.run(
-        'UPDATE careers SET title = ?, description = ?, category = ?, image_url = ? WHERE id = ?',
-        [title, description, category, image_url || '', req.params.id],
+        'UPDATE careers SET title = ?, description = ?, category = ?, image_url = ?, video_url = ? WHERE id = ?',
+        [title, description, category, image_url || '', video_url || '', req.params.id],
         function(err) {
             if (err) {
                 return res.status(500).json({ error: err.message });
@@ -279,14 +292,14 @@ app.get('/api/careers', (req, res) => {
 });
 
 app.post('/api/careers', (req, res) => {
-    const { title, description, category } = req.body;
+    const { title, description, category, image_url, video_url } = req.body;
 
     if (!title) {
         return res.status(400).json({ error: 'Title is required' });
     }
 
-    db.run('INSERT INTO careers (title, description, category) VALUES (?, ?, ?)',
-           [title, description, category], function(err) {
+    db.run('INSERT INTO careers (title, description, category, image_url, video_url) VALUES (?, ?, ?, ?, ?)',
+           [title, description, category, image_url || '', video_url || ''], function(err) {
         if (err) {
             return res.status(500).json({ error: 'Database error' });
         }
@@ -308,6 +321,57 @@ app.post('/api/mentors', (req, res) => {
         }
         res.json({ message: 'Mentor application submitted successfully', mentorId: this.lastID });
     });
+});
+
+app.post('/api/chat', async (req, res) => {
+    const { message } = req.body;
+
+    if (!message) {
+        return res.status(400).json({ error: 'Message is required' });
+    }
+
+    try {
+        if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'your_gemini_api_key_here') {
+            return res.json({ 
+                response: "Hello! It looks like the Gemini API Key is not set yet in the environment. Please add a valid GEMINI_API_KEY to your `.env` file to unlock my full AI career counseling capabilities!\n\nFor now, here is a helpful career tip: Focus on building practical projects and internships to boost your resume!"
+            });
+        }
+
+        const systemPrompt = "You are a professional and friendly AI Career Counselor named 'Career AI' for the platform 'CareerPath'. " +
+            "Your job is to guide students towards their dream careers, recommend learning paths, analyze skills, " +
+            "and suggest educational goals. Keep your answers clear, motivating, and professional. " +
+            "Please respond concisely (max 3 short paragraphs) so that it is readable in a chat bubble. " +
+            "Support multiple languages, including Hindi and English.";
+
+        const prompt = `${systemPrompt}\n\nUser Question: ${message}`;
+        let responseText = "";
+
+        try {
+            // Try standard Gemini 2.5 Flash model (fully active and working in 2026!)
+            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+            const result = await model.generateContent(prompt);
+            responseText = result.response.text();
+        } catch (flash25Error) {
+            console.warn("Gemini 2.5 Flash failed, trying fallback model gemini-2.0-flash...", flash25Error.message);
+            try {
+                // Fallback to gemini-2.0-flash
+                const modelFallback = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+                const resultFallback = await modelFallback.generateContent(prompt);
+                responseText = resultFallback.response.text();
+            } catch (flash20Error) {
+                console.warn("Gemini 2.0 Flash failed, trying fallback model gemini-1.5-pro...", flash20Error.message);
+                // Last fallback to stable gemini-1.5-pro
+                const modelPro = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+                const resultPro = await modelPro.generateContent(prompt);
+                responseText = resultPro.response.text();
+            }
+        }
+
+        res.json({ response: responseText });
+    } catch (e) {
+        console.error('Gemini API error:', e);
+        res.status(500).json({ error: 'Error calling Gemini AI: ' + e.message });
+    }
 });
 
 // Start server

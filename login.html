@@ -15,18 +15,18 @@
                 extend: {
                     colors: {
                         indigo: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#312e81',
+                            50: 'rgba(250, 204, 21, 0.1)',
+                            100: 'rgba(250, 204, 21, 0.15)',
+                            500: '#facc15',
+                            600: '#eab308',
+                            700: '#ca8a04',
+                            900: '#854d0e',
                         },
                         slate: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                            50: '#18181b',
+                            100: '#27272a',
+                            800: '#a1a1aa',
+                            900: '#f4f4f5',
                         }
                     }
                 }
@@ -36,6 +36,54 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Force Cyberpunk Black & Yellow contrast on Login Page */
+        body {
+            background-color: #09090b !important;
+            background-image: 
+                radial-gradient(at 5% 5%, rgba(250, 204, 21, 0.05) 0px, transparent 40%), 
+                radial-gradient(at 95% 5%, rgba(202, 138, 4, 0.04) 0px, transparent 40%), 
+                radial-gradient(at 50% 95%, rgba(250, 204, 21, 0.03) 0px, transparent 45%) !important;
+            color: #f4f4f5 !important;
+        }
+        
+        .bg-white {
+            background-color: #18181b !important;
+        }
+        
+        h1, h2, h3, h4, h5, h6, label {
+            color: #ffffff !important;
+        }
+        
+        .text-slate-900, .text-slate-800 {
+            color: #ffffff !important;
+        }
+        
+        .text-slate-600, .text-slate-500 {
+            color: #a1a1aa !important;
+        }
+        
+        input {
+            background-color: #09090b !important;
+            border-color: #27272a !important;
+            color: #ffffff !important;
+        }
+        
+        input:focus {
+            border-color: #facc15 !important;
+            box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.2) !important;
+        }
+        
+        .btn-primary, button[type="submit"] {
+            background-color: #facc15 !important;
+            color: #000000 !important;
+        }
+        
+        .btn-primary:hover, button[type="submit"]:hover {
+            background-color: #eab308 !important;
+        }
+    </style>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">

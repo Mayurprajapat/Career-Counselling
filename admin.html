@@ -16,18 +16,18 @@
                 extend: {
                     colors: {
                         indigo: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#312e81',
+                            50: 'rgba(250, 204, 21, 0.1)',
+                            100: 'rgba(250, 204, 21, 0.15)',
+                            500: '#facc15',
+                            600: '#eab308',
+                            700: '#ca8a04',
+                            900: '#854d0e',
                         },
                         slate: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            800: '#1e293b',
-                            900: '#0f172a',
+                            50: '#18181b',
+                            100: '#27272a',
+                            800: '#a1a1aa',
+                            900: '#f4f4f5',
                         }
                     }
                 }
@@ -42,10 +42,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
     <style>
-        .sidebar-active {
-            background-color: #4f46e5;
-            color: white;
+        /* Force Cyberpunk Black & Yellow contrast on Admin Dashboard */
+        body {
+            background-color: #09090b !important;
+            background-image: 
+                radial-gradient(at 5% 5%, rgba(250, 204, 21, 0.05) 0px, transparent 40%), 
+                radial-gradient(at 95% 5%, rgba(202, 138, 4, 0.04) 0px, transparent 40%), 
+                radial-gradient(at 50% 95%, rgba(250, 204, 21, 0.03) 0px, transparent 45%) !important;
+            color: #f4f4f5 !important;
         }
+        
+        aside, .bg-white {
+            background-color: #18181b !important;
+            border-color: #27272a !important;
+        }
+        
+        h1, h2, h3, h4, h5, h6, label {
+            color: #ffffff !important;
+        }
+        
+        .text-slate-900, .text-slate-800 {
+            color: #ffffff !important;
+        }
+        
+        .text-slate-600, .text-slate-500 {
+            color: #a1a1aa !important;
+        }
+        
+        .sidebar-active {
+            background-color: #facc15 !important;
+            color: #000000 !important;
+        }
+        
         .modal-overlay {
             display: none;
             position: fixed;
@@ -53,11 +81,31 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 40;
         }
+        
         .modal-overlay.active {
             display: flex;
+        }
+        
+        /* Table styling for dark theme dashboard */
+        table {
+            background-color: #18181b !important;
+        }
+        
+        th {
+            background-color: #1c1c21 !important;
+            color: #ffffff !important;
+        }
+        
+        td {
+            border-color: #27272a !important;
+            color: #e4e4e7 !important;
+        }
+        
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.02) !important;
         }
     </style>
 </head>

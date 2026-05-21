@@ -1,25 +1,25 @@
-/* Professional Color Scheme & Tokens */
+/* Professional Color Scheme & Tokens - Futuristic Black & Yellow Cyberpunk Mode */
 :root {
-    --primary-color: #0f172a; /* Slate 900 */
-    --secondary-color: #334155; /* Slate 700 */
-    --accent-color: #6366f1; /* Indigo 500 */
-    --accent-hover: #4f46e5; /* Indigo 600 */
-    --accent-light: #eef2ff; /* Indigo 50 */
+    --primary-color: #ffffff; 
+    --secondary-color: #e4e4e7; 
+    --accent-color: #facc15; 
+    --accent-hover: #eab308; 
+    --accent-light: rgba(250, 204, 21, 0.15); 
     --success: #10b981;
-    --warning: #f59e0b;
+    --warning: #facc15;
     --danger: #ef4444;
-    --light-bg: #f8fafc; /* Slate 50 */
-    --white: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #475569; /* Slate 600 */
-    --text-muted: #94a3b8; /* Slate 400 */
-    --border-color: #e2e8f0; /* Slate 200 */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-    --shadow-indigo: 0 10px 15px -3px rgba(99, 102, 241, 0.2);
-    --shadow-elevated: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    --light-bg: #09090b; 
+    --white: #18181b; 
+    --text-primary: #f4f4f5; 
+    --text-secondary: #a1a1aa; 
+    --text-muted: #52525b; 
+    --border-color: #27272a; 
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.5);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5), 0 4px 6px -4px rgb(0 0 0 / 0.5);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+    --shadow-indigo: 0 10px 15px -3px rgba(250, 204, 21, 0.25);
+    --shadow-elevated: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
     --radius-md: 0.75rem;
     --radius-lg: 1rem;
     --radius-xl: 1.5rem;
@@ -931,29 +931,30 @@ section {
 
 /* Premium Dynamic Mesh Background */
 .bg-mesh-gradient {
+    background-color: #09090b !important;
     background-image: 
-        radial-gradient(at 5% 5%, rgba(99, 102, 241, 0.04) 0px, transparent 40%), 
-        radial-gradient(at 95% 5%, rgba(139, 92, 246, 0.04) 0px, transparent 40%), 
-        radial-gradient(at 50% 95%, rgba(236, 72, 153, 0.03) 0px, transparent 45%);
+        radial-gradient(at 5% 5%, rgba(250, 204, 21, 0.05) 0px, transparent 40%), 
+        radial-gradient(at 95% 5%, rgba(202, 138, 4, 0.04) 0px, transparent 40%), 
+        radial-gradient(at 50% 95%, rgba(250, 204, 21, 0.03) 0px, transparent 45%) !important;
 }
 
 /* Glowing Glassmorphism Card */
 .glass-card-glow {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(14px) saturate(180%);
-    -webkit-backdrop-filter: blur(14px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    border-radius: var(--radius-xl);
-    transition: var(--transition-spring);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.04);
+    background: rgba(24, 24, 27, 0.7) !important;
+    backdrop-filter: blur(14px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+    border: 1px solid rgba(250, 204, 21, 0.1) !important;
+    border-radius: var(--radius-xl) !important;
+    transition: var(--transition-spring) !important;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5) !important;
 }
 
 .glass-card-glow:hover {
-    transform: translateY(-8px) scale(1.01);
-    background: rgba(255, 255, 255, 0.85);
-    border-color: rgba(99, 102, 241, 0.35);
-    box-shadow: 0 30px 60px -15px rgba(99, 102, 241, 0.12), 
-                0 0 40px -5px rgba(99, 102, 241, 0.05);
+    transform: translateY(-8px) scale(1.01) !important;
+    background: rgba(28, 28, 32, 0.85) !important;
+    border-color: rgba(250, 204, 21, 0.4) !important;
+    box-shadow: 0 30px 60px -15px rgba(250, 204, 21, 0.15), 
+                0 0 40px -5px rgba(250, 204, 21, 0.05) !important;
 }
 
 /* Dynamic Interactive Buttons */
@@ -1027,6 +1028,211 @@ section {
 /* Smooth Input Focus Indicator */
 .premium-focus-glow:focus {
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+    box-shadow: 0 0 0 4px rgba(250, 204, 21, 0.2);
     background-color: var(--white);
+}
+
+/* Global Futuristic High-Contrast Dark Mode Overrides */
+body {
+    background-color: #09090b !important;
+    color: #f4f4f5 !important;
+}
+
+/* Override standard Tailwind light-mode cards & backgrounds */
+.bg-white {
+    background-color: #18181b !important;
+}
+.bg-slate-50 {
+    background-color: #0f0f11 !important;
+}
+.bg-slate-100 {
+    background-color: #18181b !important;
+}
+.text-slate-900 {
+    color: #ffffff !important;
+}
+.text-slate-800 {
+    color: #f4f4f5 !important;
+}
+.text-slate-700 {
+    color: #e4e4e7 !important;
+}
+.text-slate-600 {
+    color: #a1a1aa !important;
+}
+.text-slate-500 {
+    color: #71717a !important;
+}
+.border-slate-100, .border-slate-200 {
+    border-color: #27272a !important;
+}
+
+/* Accent neon glow effects */
+.cursor-glow {
+    background: radial-gradient(circle 250px at center, rgba(250, 204, 21, 0.08), transparent 80%) !important;
+}
+
+.glass-card-glow {
+    background: rgba(24, 24, 27, 0.8) !important;
+    border: 1px solid rgba(250, 204, 21, 0.1) !important;
+}
+
+.glass-card-glow:hover {
+    border-color: rgba(250, 204, 21, 0.4) !important;
+    box-shadow: 0 10px 30px -10px rgba(250, 204, 21, 0.15) !important;
+}
+
+.avatar-pulse-container::after {
+    background: linear-gradient(135deg, #facc15, #ca8a04) !important;
+}
+
+.text-indigo-600 {
+    color: #facc15 !important;
+}
+.bg-indigo-600 {
+    background-color: #facc15 !important;
+    color: #000000 !important;
+}
+.bg-indigo-600:hover {
+    background-color: #eab308 !important;
+}
+.bg-indigo-50 {
+    background-color: rgba(250, 204, 21, 0.1) !important;
+    color: #facc15 !important;
+}
+.bg-indigo-50:hover {
+    background-color: #facc15 !important;
+    color: #000000 !important;
+}
+
+/* Glowing text highlight */
+.text-gradient {
+    background: linear-gradient(135deg, #ffffff 30%, #facc15 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+/* Custom utility overrides to enforce rich dark mode on all index.html components */
+.bg-white\/50, .bg-white\/30, .bg-white\/20, .bg-white\/10 {
+    background-color: rgba(24, 24, 27, 0.7) !important;
+    border-color: rgba(250, 204, 21, 0.2) !important;
+}
+
+/* Specific styling for the hero achievement cards and buttons */
+.absolute.-bottom-6.-left-10.bg-white,
+div[class*="absolute -bottom-6 -left-10 bg-white"] {
+    background-color: #18181b !important;
+    border-color: rgba(250, 204, 21, 0.15) !important;
+}
+
+/* Ensure all headings in the page are bright white */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+}
+
+/* Set high contrast for descriptive and secondary text */
+p {
+    color: #a1a1aa !important;
+}
+
+/* Specific styling for the ratings rating container text */
+.text-slate-900 {
+    color: #ffffff !important;
+}
+.text-slate-800 {
+    color: #f4f4f5 !important;
+}
+
+/* Rating badge inside hero avatar block (+5k) */
+.bg-indigo-600.text-white {
+    background-color: #facc15 !important;
+    color: #000000 !important;
+}
+
+/* Customize scrollbars for premium dark feel */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+    background: #27272a;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #facc15;
+}
+
+/* Card container bg-indigo-600 text color overrides for extreme readability */
+.bg-indigo-600 {
+    background-color: #facc15 !important;
+    color: #000000 !important;
+}
+.bg-indigo-600 h2, 
+.bg-indigo-600 h3, 
+.bg-indigo-600 p, 
+.bg-indigo-600 span {
+    color: #000000 !important;
+}
+.bg-indigo-600 .text-indigo-100 {
+    color: #1c1917 !important; /* Dark text for perfect contrast on yellow! */
+}
+.bg-indigo-600 button {
+    background-color: #000000 !important;
+    color: #facc15 !important;
+    border: 1px solid #facc15 !important;
+}
+.bg-indigo-600 button:hover {
+    background-color: #1c1917 !important;
+}
+
+/* Specific button styling to guarantee 100% legibility and gorgeous appearance */
+button {
+    color: #ffffff !important;
+}
+button.bg-slate-50 {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #facc15 !important; /* Accent gold text for high contrast! */
+    border: 1px solid rgba(250, 204, 21, 0.2) !important;
+}
+button.bg-slate-50:hover {
+    background-color: rgba(250, 204, 21, 0.1) !important;
+    border-color: #facc15 !important;
+}
+
+/* Explicit Header and Navigation styling */
+nav {
+    background-color: rgba(9, 9, 11, 0.9) !important;
+    border-bottom: 1px solid rgba(250, 204, 21, 0.1) !important;
+}
+nav a, nav span {
+    color: #ffffff !important;
+}
+nav a:hover {
+    color: #facc15 !important;
+}
+
+/* Explicit Footer styling */
+footer {
+    background-color: #050507 !important;
+    border-top: 1px solid rgba(250, 204, 21, 0.1) !important;
+}
+footer h4, footer a, footer p {
+    color: #e4e4e7 !important;
+}
+footer a:hover {
+    color: #facc15 !important;
+}
+
+/* Cards layout within Careers section */
+#careers-container > div {
+    background-color: #18181b !important;
+    border: 1px solid rgba(250, 204, 21, 0.1) !important;
+}
+#careers-container h3 {
+    color: #ffffff !important;
+}
+#careers-container p {
+    color: #a1a1aa !important;
 }
